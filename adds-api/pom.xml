@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>kr.xit</groupId>
+    <artifactId>xit-adds-parent</artifactId>
+    <version>1.0.0</version>
+    <relativePath/>
+	</parent>
+
+	<artifactId>adds-api</artifactId>
+	<version>1.0.0</version>
+  <packaging>jar</packaging>
+	<name>adds-api</name>
+	<description>adds-api</description>
+
+	<dependencies>
+    <dependency>
+      <groupId>kr.xit</groupId>
+      <artifactId>mens-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <optional>true</optional>
+    </dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+<!--  <repositories>-->
+<!--    <repository>-->
+<!--      <id>mvn2s</id>-->
+<!--      <url>https://repo1.maven.org/maven2/</url>-->
+<!--      <releases>-->
+<!--        <enabled>true</enabled>-->
+<!--      </releases>-->
+<!--      <snapshots>-->
+<!--        <enabled>true</enabled>-->
+<!--      </snapshots>-->
+<!--    </repository>-->
+<!--    <repository>-->
+<!--      <id>egovframe2</id>-->
+<!--      <url>https://maven.egovframe.go.kr/maven/</url>-->
+<!--      <releases>-->
+<!--        <enabled>true</enabled>-->
+<!--      </releases>-->
+<!--      <snapshots>-->
+<!--        <enabled>false</enabled>-->
+<!--      </snapshots>-->
+<!--    </repository>-->
+<!--    <repository>-->
+<!--      <id>local-repository</id>-->
+<!--      <name>local repository</name>-->
+<!--      <url>file://${project.basedir}/lib</url>-->
+<!--    </repository>-->
+
+<!--    <repository>-->
+<!--      <id>maven-public</id>-->
+<!--      <url>https://nas.xit.co.kr:8888/repository/maven-public</url>-->
+<!--      <releases>-->
+<!--        <enabled>true</enabled>-->
+<!--      </releases>-->
+<!--      <snapshots>-->
+<!--        <enabled>false</enabled>-->
+<!--      </snapshots>-->
+<!--    </repository>-->
+
+<!--  </repositories>-->
+
+</project>

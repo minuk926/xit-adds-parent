@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: adds-api
+  main:
+    # 순환참조 에러 무시
+    allow-circular-references: true
+    pid:
+      file: ${app.data.root.path}/${spring.application.name}.pid
+
+  profiles:
+    active: '@springProfilesActive@'
+
+    # core의 application-common.yml과 application-auth.yml include
+    include:
+      - https
+      - common
+      - auth
+      - app
+
+  datasource:
+    #type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      primary:
+        pool-name: xit-maria-pool
+        auto-commit: false
+        # 인프라의 적용된 connection time limit보다 작아야함
+        validation-timeout: 300000
+        max-lifetime: 1800000
+        maximum-pool-size: 15
+        minimum-idle: 5
+        #transaction-isolation: TRANSACTION_READ_UNCOMMITTED
+        data-source-properties:
+          rewriteBatchedStatements: true
+
+#  messages:
+#    basename:
+#      classpath:/egovframework/messages/com/cmm/message-common,
+#      classpath:/egovframework/messages/com/cmm/err/message-common,
+#      classpath:/egovframework/messages/com/uat/uia/message,
+#      classpath:/egovframework/messages/com/sec/rmt/message,
+#      classpath:/egovframework/messages/com/sec/ram/message,
+#      classpath:/egovframework/messages/com/message-common,
+#      classpath:/egovframework/messages/message-common,
+#      classpath:/egovframework/messages/message-api,
+#      classpath:/org/egovframe/rte/fdl/idgnr/messages/idgnr,
+#      classpath:/org/egovframe/rte/fdl/property/messages/properties,
+#      classpath:/egovframework/egovProps/globals
+#    encoding: UTF-8
+
+app:
+  # springdoc url 정보
+  desc: 모바일 전자고지 Rest API
+  data:
+    root:
+      path: /data
+  file:
+    cmm:
+      temp-path: ${app.data.root.path}/temp
+      upload:
+        root: ${app.data.root.path}

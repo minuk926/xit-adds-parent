@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+  <localRepository>C:/repo</localRepository>
+  <servers>
+    <server>
+      <id>nexus</id>
+      <username>xituser</username>
+      <password>5811807</password>
+    </server>
+    <server>
+      <id>maven-snapshots</id>
+      <username>xituser</username>
+      <password>5811807</password>
+    </server>
+    <server>
+      <id>maven-releases</id>
+      <username>xituser</username>
+      <password>5811807</password>
+    </server>
+    <server>
+      <id>maven-public</id>
+      <username>xituser</username>
+      <password>5811807</password>
+    </server>
+  </servers>
+
+  <mirrors>
+    <mirror>
+      <id>nexus</id>
+      <mirrorOf>nexus</mirrorOf>
+      <url>https://nas.xit.co.kr:8888</url>
+    </mirror>
+    <mirror>
+      <id>maven-snapshots</id>
+      <mirrorOf>maven-snapshots</mirrorOf>
+      <url>https://nas.xit.co.kr:8888/repository/maven-snapshots/</url>
+    </mirror>
+    <mirror>
+      <id>maven-releases</id>
+      <mirrorOf>maven-releases</mirrorOf>
+      <url>https://nas.xit.co.kr:8888/repository/maven-releases/</url>
+    </mirror>
+    <mirror>
+      <id>maven-public</id>
+      <mirrorOf>maven-public</mirrorOf>
+      <url>https://nas.xit.co.kr:8888/repository/maven-public/</url>
+    </mirror>
+
+    <!-- http nexus 접근 허용이 필요한 경우 -->
+    <mirror>
+      <id>maven-default-http-blocker</id>
+      <mirrorOf>external:dont-match-anything-mate:*</mirrorOf>
+      <name>Pseudo repository to mirror external repositories initially using HTTP</name>
+      <url>http://0.0.0.0/</url>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+
+    <profile>
+      <id>nexus</id>
+      <repositories>
+
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>maven-snapshots</id>
+          <url>https://nas.xit.co.kr:8888/repository/maven-snapshots/</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>maven-releases</id>
+          <url>https://nas.xit.co.kr:8888/repository/maven-releases/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>maven-public</id>
+          <url>https://nas.xit.co.kr:8888/repository/maven-public/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>nexus</activeProfile>
+  </activeProfiles>
+
+</settings>

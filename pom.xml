@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>kr.xit</groupId>
+  <artifactId>xit-adds-parent</artifactId>
+  <version>1.0.0</version>
+<!--  <version>1.0.0-RELEASE</version>-->
+  <packaging>pom</packaging>
+  <description>adds parent pom</description>
+
+  <modules>
+    <module>mens-core</module>
+    <module>adds-api</module>
+  </modules>
+
+  <properties>
+    <spring.boot.version>2.7.12</spring.boot.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <spring.maven.artifact.version>5.3.20</spring.maven.artifact.version>
+    <org.egovframe.rte.version>4.2.0</org.egovframe.rte.version>
+    <lombok.version>1.18.28</lombok.version>
+    <logback.version>1.2.11</logback.version>
+    <!-- proguard -->
+    <proguard-plugin-version>2.6.0</proguard-plugin-version> <!-- 2.5.3 / 2.6.0 -->
+    <proguard-base-version>7.3.2</proguard-base-version> <!-- 7.2.2 / 7.3.1 / 7.3.2 -->
+    <proguard-core-version>9.0.10</proguard-core-version> <!-- 9.0.10 -->
+    <!-- excel poi -->
+    <apache.poi.version>5.1.0</apache.poi.version> <!-- 4.1.2 -->
+    <maven.test.skip>true</maven.test.skip>
+    <project.encoding>UTF-8</project.encoding>
+    <apache.tomcat.version>9.0.78</apache.tomcat.version>
+    <servlet-api.version>3.1.0</servlet-api.version>
+  </properties>
+
+  <!-- spring Boot Parent 설정 -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.7.12</version>
+    <relativePath/>
+  </parent>
+
+  <repositories>
+    <repository>
+      <id>mvn2s</id>
+      <url>https://repo1.maven.org/maven2/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>egovframe2</id>
+      <url>https://maven.egovframe.go.kr/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>local-repository</id>
+      <name>local repository</name>
+      <url>file://${project.basedir}/lib</url>
+    </repository>
+
+    <repository>
+      <id>maven-public</id>
+      <url>https://nas.xit.co.kr:8888/repository/maven-public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+
+  </repositories>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <configuration>
+            <propertiesEncoding>UTF-8</propertiesEncoding>
+            <nonFilteredFileExtensions>
+              <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
+              <nonFilteredFileExtension>swf</nonFilteredFileExtension>
+              <nonFilteredFileExtension>xls</nonFilteredFileExtension>
+              <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+              <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+            </nonFilteredFileExtensions>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.source}</target>
+            <maxmem>1024m</maxmem>
+            <excludes>
+              <exclude>**/BouncyUtils.java</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <!--version>3.0.1</version-->
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <phase>package</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <excludes>
+                  <exclude>**/BouncyUtils.java</exclude>
+                </excludes>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+
+          <executions>
+            <execution>
+              <id>javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+
+          <configuration>
+            <!-- Java 8 은 Javadoc 에 대해서도 lint 를 수행 : 잘못된 doc이 있을 경우 warning이 아닌 error로 처리해서 javadoc 생성을 중지 -->
+            <doclint>none</doclint>
+            <minmemory>128m</minmemory>
+            <maxmemory>512m</maxmemory>
+            <encoding>${project.encoding}</encoding>
+            <docencoding>${project.encoding}</docencoding>
+            <charset>${project.encoding}</charset>
+            <failOnError>false</failOnError>
+            <sourceFileExcludes>
+              <sourceFileExclude>**/module-info.java</sourceFileExclude>
+            </sourceFileExcludes>
+            <stylesheetfile>openframework.css</stylesheetfile>
+            <quiet>true</quiet>
+            <verbose>false</verbose>
+            <locale>ko_KR</locale>
+            <show>private</show>
+            <nohelp>true</nohelp>
+            <!--
+            <outputDirectory>${basedir}/javadoc</outputDirectory>
+            <reportOutputDirectory>${basedir}/javadoc</reportOutputDirectory>
+            -->
+            <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
+            <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
+            <excludePackageNames>xit.core.init.custom.*</excludePackageNames>
+            <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+          </configuration>
+        </plugin>
+        <!-- site plugin : maven-site-pugin, maven-project-info-reports-plugin 필요-->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.12.1</version>
+          <executions>
+            <execution>
+              <id>site</id>
+              <phase>install</phase>
+              <goals>
+                <goal>site</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.4.5</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+
+
+    </plugins>
+  </build>
+
+  <reporting>
+    <!--outputDirectory>${basedir}/target/site</outputDirectory-->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <!-- JUnit Test Results & EMMA Coverage Reporting -->
+      <!--
+      <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>emma-maven-plugin</artifactId>
+          <inherited>true</inherited>
+      </plugin>
+      <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>surefire-report-maven-plugin</artifactId>
+          <inherited>true</inherited>
+          <reportSets>
+              <reportSet>
+                  <reports>
+                      <report>report-only</report>
+                  </reports>
+              </reportSet>
+          </reportSets>
+      </plugin>
+      -->
+      <!-- Generating JavaDoc Report -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <!-- Generating Java Source in HTML -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+          <inputEncoding>${project.encoding}</inputEncoding>
+          <outputEncoding>${project.encoding}</outputEncoding>
+          <linkJavadoc>true</linkJavadoc>
+          <javadocDir>apidocs</javadocDir>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <profiles>
+    <!-- default : local configuration -->
+    <profile>
+      <id>local</id>
+      <properties>
+        <env>local</env>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+
+    <!-- dev configuration -->
+    <profile>
+      <id>dev</id>
+      <properties>
+        <env>dev</env>
+      </properties>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+
+    <!-- prod configuration -->
+    <profile>
+      <id>prod</id>
+      <properties>
+        <env>prod</env>
+      </properties>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+  </profiles>
+
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>maven-snapshots</id>
+      <url>https://nas.xit.co.kr:8888/repository/maven-snapshots/</url>
+<!--      <snapshots>-->
+<!--        <enabled>true</enabled>-->
+<!--        <updatePolicy>always</updatePolicy>-->
+<!--      </snapshots>-->
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </snapshotRepository>
+
+    <repository>
+      <id>maven-releases</id>
+      <url>https://nas.xit.co.kr:8888/repository/maven-releases</url>
+    </repository>
+
+  </distributionManagement>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2/</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+
+</project>
