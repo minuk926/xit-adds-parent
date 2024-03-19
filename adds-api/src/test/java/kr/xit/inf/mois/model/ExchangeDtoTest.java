@@ -288,7 +288,7 @@ public class ExchangeDtoTest {
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         ExchangeDto dto
-            = xmlMapper.readValue(xml2, ExchangeDto.class);
+            = xmlMapper.readValue(xml3, ExchangeDto.class);
         log.info("dto: {}", dto);
 
         assertNotNull(dto);
