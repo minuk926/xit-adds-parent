@@ -2,7 +2,6 @@ package kr.xit.inf.mois.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -17,12 +16,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * <pre>
- * description :
+ * description : exchange_mis.dtd 파일에 정의된 XML 요청/응답 구조를 정의한 클래스
  *
  * packageName : kr.xit.inf.mois.model
  * fileName    : Exchange
@@ -44,14 +42,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ExchangeDto {
-    @JsonIgnore
-    @Getter
-    private static String XML_PRE_FIX = """
-                                        <?xml version="1.0" encoding="EUC-KR"?>
-                                        <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
-                                        """;
-
-    @JsonProperty("HEADER")
+    @JsonProperty(value = "HEADER", required = true)
     private Header HEADER;
 
     @JsonProperty("BODY")
@@ -64,9 +55,6 @@ public class ExchangeDto {
     private AdminstrativeInfo ADMINISTRATIVE_INFO;
 
 
-    //---------------------------------------------------------------
-    // EXCHANGE
-    //---------------------------------------------------------------
     @JacksonXmlRootElement(localName = "HEADER")
     @XmlRootElement(name = "HEADER")
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -74,9 +62,9 @@ public class ExchangeDto {
     @AllArgsConstructor
     @Builder
     public static class Header {
-        @JsonProperty("COMMON")
+        @JsonProperty(value = "COMMON", required = true)
         private Common COMMON;
-        @JsonProperty("DIRECTION")
+        @JsonProperty(value = "DIRECTION", required = true)
         private Direction DIRECTION;
         @JsonProperty("ADDENDA")
         private Addenda ADDENDA;
@@ -89,17 +77,17 @@ public class ExchangeDto {
     @AllArgsConstructor
     @Builder
     public static class Common {
-        @JsonProperty("SENDER")
+        @JsonProperty(value = "SENDER", required = true)
         private Sender SENDER;
-        @JsonProperty("RECEIVER")
+        @JsonProperty(value = "RECEIVER", required = true)
         private Receiver RECEIVER;
-        @JsonProperty("TITLE")
+        @JsonProperty(value = "TITLE", required = true)
         private String TITLE;
-        @JsonProperty("CREATED_DATE")
+        @JsonProperty(value = "CREATED_DATE", required = true)
         private String CREATED_DATE;
-        @JsonProperty("ATTACHNUM")
+        @JsonProperty(value = "ATTACHNUM", required = true)
         private int ATTACHNUM;
-        @JsonProperty("ADMINISTRATIVE_NUM")
+        @JsonProperty(value = "ADMINISTRATIVE_NUM", required = true)
         private String ADMINISTRATIVE_NUM;
     }
 
@@ -110,9 +98,9 @@ public class ExchangeDto {
     @AllArgsConstructor
     @Builder
     public static class Sender {
-        @JsonProperty("SERVERID")
+        @JsonProperty(value = "SERVERID", required = true)
         private String SERVERID;
-        @JsonProperty("USERID")
+        @JsonProperty(value = "USERID", required = true)
         private String USERID;
         @JsonProperty("EMAIL")
         private String EMAIL;
@@ -125,9 +113,9 @@ public class ExchangeDto {
     @AllArgsConstructor
     @Builder
     public static class Receiver {
-        @JsonProperty("SERVERID")
+        @JsonProperty(value = "SERVERID", required = true)
         private String SERVERID;
-        @JsonProperty("USERID")
+        @JsonProperty(value = "USERID", required = true)
         private String USERID;
         @JsonProperty("EMAIL")
         private String EMAIL;
