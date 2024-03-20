@@ -32,9 +32,9 @@ import lombok.extern.slf4j.Slf4j;
  * @see CachingConfig
  * @see org.springframework.cache.interceptor.SimpleKeyGenerator
  */
+@Service
 @Slf4j
 @RequiredArgsConstructor
-@Service
 public class CmmCacheService implements ICmmCacheService {
     private final ICmmCacheMapper cmmMapper;
     private final CacheManager cacheManager;

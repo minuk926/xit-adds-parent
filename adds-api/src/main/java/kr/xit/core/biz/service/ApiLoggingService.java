@@ -1,14 +1,16 @@
 package kr.xit.core.biz.service;
 
 import java.util.List;
-import kr.xit.core.biz.mapper.IApiLoggingMapper;
-import kr.xit.core.biz.model.LoggingDTO;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import kr.xit.core.biz.mapper.IApiLoggingMapper;
+import kr.xit.core.biz.model.LoggingDTO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <pre>
@@ -26,9 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
  * </pre>
  */
 
+@Service
 @Slf4j
 @RequiredArgsConstructor
-@Service
 public class ApiLoggingService extends EgovAbstractServiceImpl implements IApiLoggingService {
     private final IApiLoggingMapper mapper;
 
