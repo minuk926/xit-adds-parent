@@ -26,6 +26,8 @@ import lombok.NoArgsConstructor;
 public class StringUtils {
 
     public static String getUtf8UrlEncoding(final String str) {
+        if(!org.springframework.util.StringUtils.hasText(str)) return str;
+
         try {
             return URLEncoder.encode(
                 org.apache.commons.codec.binary.StringUtils.newStringUtf8(

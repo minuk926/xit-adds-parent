@@ -18,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import kr.xit.core.support.utils.StringUtils;
 import kr.xit.inf.iros.model.DrugPrdtMcpnDtl;
 import kr.xit.inf.iros.model.DrugPrdtMcpnDtlRequest;
 import kr.xit.inf.iros.model.IrosResponse;
@@ -48,17 +47,26 @@ public class IrosRestfulTest {
 
     @DisplayName("의약품 성분조회 테스트")
     @Test
-    public void testDrugPrdtMcpnDtl() throws Exception {
-        List<Header> headers = Lists.newArrayList(new BasicHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
-        CloseableHttpClient httpClient = HttpClients.custom().setDefaultHeaders(headers).build();
+    public void testDrugPrdtMcpnDtl() {
+        final List<Header> headers = Lists.newArrayList(new BasicHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
+        final CloseableHttpClient httpClient = HttpClients.custom().setDefaultHeaders(headers).build();
         testRestTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
 
-        DrugPrdtMcpnDtlRequest request = new DrugPrdtMcpnDtlRequest(serviceKey, 1, 10, "json", "", "", "", "");
-
-        String product = StringUtils.getUtf8UrlEncoding("중외20%포도당주사액");
-
-        String urlParam = String.format("?serviceKey=%s&pageNo=%d&numOfRows=%d&type=%s&Prduct=%s", serviceKey, 1, 10, "json", product);
-        IrosResponse<DrugPrdtMcpnDtl> irosResponse = testRestTemplate.getForObject(url + urlParam, IrosResponse.class);
+        final DrugPrdtMcpnDtlRequest request = DrugPrdtMcpnDtlRequest.builder()
+            .serviceKey(serviceKey)
+            .pageNo(1)
+            .numOfRows(10)
+            .type("json")
+            .prduct("중외20%포도당주사액")
+            .build();
+        final String urlParam = String.format(
+            "?serviceKey=%s&pageNo=%d&numOfRows=%d&type=%s&Prduct=%s",
+            request.serviceKey(),
+            request.pageNo(),
+            request.numOfRows(),
+            request.type(),
+            request.prduct());
+        final IrosResponse<DrugPrdtMcpnDtl> irosResponse = testRestTemplate.getForObject(url + urlParam, IrosResponse.class);
         Assertions.assertThat(irosResponse).isNotNull();
         Assertions.assertThat(irosResponse.header().resultCode()).isEqualTo("00");
         Assertions.assertThat(irosResponse.header().resultMsg()).isEqualTo("NORMAL SERVICE.");

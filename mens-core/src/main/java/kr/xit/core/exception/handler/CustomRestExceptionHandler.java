@@ -4,12 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.CompletionException;
+
 import javax.validation.ConstraintViolationException;
-import kr.xit.core.exception.BizRuntimeException;
-import kr.xit.core.exception.ErrorParse;
-import kr.xit.core.model.ApiResponseDTO;
-import kr.xit.core.support.utils.Checks;
-import lombok.extern.slf4j.Slf4j;
+
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +19,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import kr.xit.core.exception.BizRuntimeException;
+import kr.xit.core.exception.ErrorParse;
+import kr.xit.core.model.ApiResponseDTO;
+import kr.xit.core.support.utils.Checks;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <pre>
