@@ -1,5 +1,5 @@
 
-package kr.xit.inf.nims.model;
+package kr.xit.inf.nims.model.aar;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -9,9 +9,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>lineAAR complex type에 대한 Java 클래스입니다.
- * 
+ *
  * <p>다음 스키마 단편이 이 클래스에 포함되는 필요한 콘텐츠를 지정합니다.
- * 
+ *
  * <pre>
  * &lt;complexType name="lineAAR"&gt;
  *   &lt;complexContent&gt;
@@ -39,8 +39,8 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "lineAAR", namespace = "https://www.nims.or.kr/schema/nims", propOrder = {
@@ -101,11 +101,11 @@ public class LineAAR {
 
     /**
      * usrrptidno 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getUSRRPTIDNO() {
         return usrrptidno;
@@ -113,11 +113,11 @@ public class LineAAR {
 
     /**
      * usrrptidno 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setUSRRPTIDNO(String value) {
         this.usrrptidno = value;
@@ -125,11 +125,11 @@ public class LineAAR {
 
     /**
      * usrrptlnidno 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getUSRRPTLNIDNO() {
         return usrrptlnidno;
@@ -137,11 +137,11 @@ public class LineAAR {
 
     /**
      * usrrptlnidno 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setUSRRPTLNIDNO(String value) {
         this.usrrptlnidno = value;
@@ -149,11 +149,11 @@ public class LineAAR {
 
     /**
      * storgeno 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getSTORGENO() {
         return storgeno;
@@ -161,11 +161,11 @@ public class LineAAR {
 
     /**
      * storgeno 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setSTORGENO(String value) {
         this.storgeno = value;
@@ -173,11 +173,11 @@ public class LineAAR {
 
     /**
      * mvmntycd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getMVMNTYCD() {
         return mvmntycd;
@@ -185,11 +185,11 @@ public class LineAAR {
 
     /**
      * mvmntycd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setMVMNTYCD(String value) {
         this.mvmntycd = value;
@@ -197,11 +197,11 @@ public class LineAAR {
 
     /**
      * prductcd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPRDUCTCD() {
         return prductcd;
@@ -209,11 +209,11 @@ public class LineAAR {
 
     /**
      * prductcd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPRDUCTCD(String value) {
         this.prductcd = value;
@@ -221,11 +221,11 @@ public class LineAAR {
 
     /**
      * mnfno 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getMNFNO() {
         return mnfno;
@@ -233,11 +233,11 @@ public class LineAAR {
 
     /**
      * mnfno 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setMNFNO(String value) {
         this.mnfno = value;
@@ -245,11 +245,11 @@ public class LineAAR {
 
     /**
      * mnfseq 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getMNFSEQ() {
         return mnfseq;
@@ -257,11 +257,11 @@ public class LineAAR {
 
     /**
      * mnfseq 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setMNFSEQ(String value) {
         this.mnfseq = value;
@@ -269,11 +269,11 @@ public class LineAAR {
 
     /**
      * mindistbqy 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getMINDISTBQY() {
         return mindistbqy;
@@ -281,11 +281,11 @@ public class LineAAR {
 
     /**
      * mindistbqy 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setMINDISTBQY(String value) {
         this.mindistbqy = value;
@@ -293,11 +293,11 @@ public class LineAAR {
 
     /**
      * prdmindistbunit 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPRDMINDISTBUNIT() {
         return prdmindistbunit;
@@ -305,11 +305,11 @@ public class LineAAR {
 
     /**
      * prdmindistbunit 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPRDMINDISTBUNIT(String value) {
         this.prdmindistbunit = value;
@@ -317,11 +317,11 @@ public class LineAAR {
 
     /**
      * pceqy 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPCEQY() {
         return pceqy;
@@ -329,11 +329,11 @@ public class LineAAR {
 
     /**
      * pceqy 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPCEQY(String value) {
         this.pceqy = value;
@@ -341,11 +341,11 @@ public class LineAAR {
 
     /**
      * prdpceunit 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPRDPCEUNIT() {
         return prdpceunit;
@@ -353,11 +353,11 @@ public class LineAAR {
 
     /**
      * prdpceunit 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPRDPCEUNIT(String value) {
         this.prdpceunit = value;
@@ -365,11 +365,11 @@ public class LineAAR {
 
     /**
      * prductnm 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPRDUCTNM() {
         return prductnm;
@@ -377,11 +377,11 @@ public class LineAAR {
 
     /**
      * prductnm 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPRDUCTNM(String value) {
         this.prductnm = value;
@@ -389,11 +389,11 @@ public class LineAAR {
 
     /**
      * prdsgtin 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPRDSGTIN() {
         return prdsgtin;
@@ -401,11 +401,11 @@ public class LineAAR {
 
     /**
      * prdsgtin 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPRDSGTIN(String value) {
         this.prdsgtin = value;
@@ -413,11 +413,11 @@ public class LineAAR {
 
     /**
      * prdmindistbqy 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPRDMINDISTBQY() {
         return prdmindistbqy;
@@ -425,11 +425,11 @@ public class LineAAR {
 
     /**
      * prdmindistbqy 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPRDMINDISTBQY(String value) {
         this.prdmindistbqy = value;
@@ -437,11 +437,11 @@ public class LineAAR {
 
     /**
      * prdtotpceqy 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPRDTOTPCEQY() {
         return prdtotpceqy;
@@ -449,11 +449,11 @@ public class LineAAR {
 
     /**
      * prdtotpceqy 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPRDTOTPCEQY(String value) {
         this.prdtotpceqy = value;
@@ -461,11 +461,11 @@ public class LineAAR {
 
     /**
      * prdvalidde 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPRDVALIDDE() {
         return prdvalidde;
@@ -473,11 +473,11 @@ public class LineAAR {
 
     /**
      * prdvalidde 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPRDVALIDDE(String value) {
         this.prdvalidde = value;
@@ -485,11 +485,11 @@ public class LineAAR {
 
     /**
      * filecreatdt 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getFILECREATDT() {
         return filecreatdt;
@@ -497,11 +497,11 @@ public class LineAAR {
 
     /**
      * filecreatdt 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setFILECREATDT(String value) {
         this.filecreatdt = value;

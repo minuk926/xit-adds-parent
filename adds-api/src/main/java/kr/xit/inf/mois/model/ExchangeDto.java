@@ -43,16 +43,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ExchangeDto {
     @JsonProperty(value = "HEADER", required = true)
-    private Header HEADER;
+    private Header hseader;
 
     @JsonProperty("BODY")
-    private Body BODY;
+    private Body body;
 
     @JsonProperty("ATTACHMENTS")
-    private Attachments ATTACHMENTS;
+    private Attachments attachments;
 
     @JsonProperty("ADMINISTRATIVE_INFO")
-    private AdminstrativeInfo ADMINISTRATIVE_INFO;
+    private AdminstrativeInfo administrativeInfo;
 
 
     @JacksonXmlRootElement(localName = "HEADER")
@@ -63,11 +63,11 @@ public class ExchangeDto {
     @Builder
     public static class Header {
         @JsonProperty(value = "COMMON", required = true)
-        private Common COMMON;
+        private Common common;
         @JsonProperty(value = "DIRECTION", required = true)
-        private Direction DIRECTION;
+        private Direction direction;
         @JsonProperty("ADDENDA")
-        private Addenda ADDENDA;
+        private Addenda addenda;
     }
 
     @JacksonXmlRootElement(localName = "COMMON")
@@ -78,17 +78,17 @@ public class ExchangeDto {
     @Builder
     public static class Common {
         @JsonProperty(value = "SENDER", required = true)
-        private Sender SENDER;
+        private Sender sender;
         @JsonProperty(value = "RECEIVER", required = true)
-        private Receiver RECEIVER;
+        private Receiver receiver;
         @JsonProperty(value = "TITLE", required = true)
-        private String TITLE;
+        private String title;
         @JsonProperty(value = "CREATED_DATE", required = true)
-        private String CREATED_DATE;
+        private String createdDate;
         @JsonProperty(value = "ATTACHNUM", required = true)
-        private int ATTACHNUM;
+        private int attachnum;
         @JsonProperty(value = "ADMINISTRATIVE_NUM", required = true)
-        private String ADMINISTRATIVE_NUM;
+        private String administrativeNum;
     }
 
     @JacksonXmlRootElement(localName = "SENDER")
@@ -99,11 +99,11 @@ public class ExchangeDto {
     @Builder
     public static class Sender {
         @JsonProperty(value = "SERVERID", required = true)
-        private String SERVERID;
+        private String serverid;
         @JsonProperty(value = "USERID", required = true)
-        private String USERID;
+        private String userid;
         @JsonProperty("EMAIL")
-        private String EMAIL;
+        private String email;
     }
 
     @JacksonXmlRootElement(localName = "RECEIVER")
@@ -114,11 +114,11 @@ public class ExchangeDto {
     @Builder
     public static class Receiver {
         @JsonProperty(value = "SERVERID", required = true)
-        private String SERVERID;
+        private String serverid;
         @JsonProperty(value = "USERID", required = true)
-        private String USERID;
+        private String userid;
         @JsonProperty("EMAIL")
-        private String EMAIL;
+        private String email;
     }
 
     @JacksonXmlRootElement(localName = "DIRECTION")
@@ -130,9 +130,9 @@ public class ExchangeDto {
     @Builder
     public static class Direction {
         @JsonProperty("TO_DOCUMENT_SYSTEM")
-        private ToDocumentSystem TO_DOCUMENT_SYSTEM;
+        private ToDocumentSystem toDocumentSystem;
         @JsonProperty("TO_ADMINISTRATIVE_SYSTEM")
-        private ToAdministrativeSystem TO_ADMINISTRATIVE_SYSTEM;
+        private ToAdministrativeSystem toAdministrativeSystem;
     }
 
     @JacksonXmlRootElement(localName = "TO_ADMINISTRATIVE_SYSTEM")
@@ -143,15 +143,15 @@ public class ExchangeDto {
     @Builder
     public static class ToAdministrativeSystem {
         @JsonProperty("DOCNUM")
-        private Docnum DOCNUM;
+        private Docnum docnum;
         @JsonProperty("SANCTION_INFO")
-        private SanctionInfo SANCTION_INFO;
+        private SanctionInfo sanctionInfo;
         @JsonProperty("MODIFICATION_FLAG")
-        private ModificationFlag MODIFICATION_FLAG;
+        private ModificationFlag modificationFlag;
         @JsonProperty("BODY_MODIFICATIONFLAG")
-        private BodyModificationflag BODY_MODIFICATIONFLAG;
+        private BodyModificationflag bodyModificationflag;
         @JsonProperty("BODY_TEXT")
-        private String BODY_TEXT;
+        private String bodyText;
     }
 
     @JacksonXmlRootElement(localName = "SANCTION_INFO")
@@ -171,7 +171,7 @@ public class ExchangeDto {
 
         //@XmlElementWrapper(nillable = true, name = "LINES")
         @JsonProperty("LINES")
-        private Lines LINES;
+        private Lines lines;
     }
 
     @JacksonXmlRootElement(localName = "LINES")
@@ -183,7 +183,7 @@ public class ExchangeDto {
     public static class Lines {
         @XmlElementWrapper
         @JsonProperty("LINE")
-        private List<Line> LINE;
+        private List<Line> line;
     }
 
     @JacksonXmlRootElement(localName = "LINE")
@@ -194,9 +194,9 @@ public class ExchangeDto {
     @Builder
     public static class Line {
         @JsonProperty("LEVEL")
-        private String LEVEL;
+        private String level;
         @JsonProperty("SANCTION")
-        private Sanction SANCTION;
+        private Sanction sanction;
     }
 
     @JacksonXmlRootElement(localName = "SANCTION")
@@ -213,13 +213,13 @@ public class ExchangeDto {
         @JacksonXmlProperty(isAttribute = true, localName = "type")
         private String type;
         @JsonProperty("PERSON")
-        private Person PERSON;
+        private Person person;
 
         @JsonProperty("COMMENT")
-        private String COMMENT;
+        private String comment;
 
         @JsonProperty("DATE")
-        private String DATE;
+        private String date;
     }
 
     @JacksonXmlRootElement(localName = "PERSON")
@@ -230,15 +230,15 @@ public class ExchangeDto {
     @Builder
     public static class Person {
         @JsonProperty("USERID")
-        private String USERID;
+        private String userid;
         @JsonProperty("NAME")
-        private String NAME;
+        private String name;
         @JsonProperty("POSITION")
-        private String POSITION;
+        private String position;
         @JsonProperty("DEPT")
-        private String DEPT;
+        private String dept;
         @JsonProperty("ORG")
-        private String ORG;
+        private String org;
     }
 
     @JacksonXmlRootElement(localName = "BODY_MODIFICATIONFLAG")
@@ -248,13 +248,11 @@ public class ExchangeDto {
     @AllArgsConstructor
     @Builder
     public static class BodyModificationflag {
-        // @XmlAttribute
-        // @JacksonXmlProperty(isAttribute = true, localName = "modifyflag")
         @JsonProperty("BODY_MODIFIABLE")
-        private BodyModifiable BODY_MODIFIABLE;
+        private BodyModifiable bodyModifiable;
 
         @JsonProperty("BODY_MODIFIED")
-        private String BODY_MODIFIED;
+        private String bodyModified;
     }
 
     //@Getter
@@ -283,20 +281,15 @@ public class ExchangeDto {
         @JacksonXmlProperty(isAttribute = true, localName = "notification")
         String notification;
 
-        // @XmlElementWrapper(nillable = true, name = "LINES")
-        // @JsonProperty("LINES")
-        // private List<Line> LINES;
-
         @JsonProperty("LINES")
-        private Lines LINES;
+        private Lines lines;
 
         @JsonProperty("MODIFICATION_FLAG")
-        private ModificationFlag MODIFICATION_FLAG;
+        private ModificationFlag modificationFlag;
         @JsonProperty("BODY_MODIFICATIONFLAG")
-        private BodyModificationflag BODY_MODIFICATIONFLAG;
+        private BodyModificationflag bodyModificationflag;
         @JsonProperty("DOC_INFO")
-        private DocInfo DOC_INFO;
-        //private String text;
+        private DocInfo docInfo;
     }
 
     @JacksonXmlRootElement(localName = "DOC_INFO")
@@ -307,38 +300,38 @@ public class ExchangeDto {
     @Builder
     public static class DocInfo {
         @JsonProperty("SUMMARY")
-        private String SUMMARY;
+        private String summary;
 
         @JsonProperty("DOCGUBUN")
-        private Docgubun DOCGUBUN;
+        private Docgubun docgubun;
 
         @JsonProperty("READINGBOUND")
-        private Readingbound READINGBOUND;
+        private Readingbound readingbound;
 
         @JsonProperty("READINGLIMIT")
-        private Readinglimit READINGLIMIT;
+        private Readinglimit readinglimit;
 
         @JsonProperty("PUBLICATION")
-        private Publication PUBLICATION;
+        private Publication publication;
 
         @XmlElementWrapper
         @JsonProperty("TASKCARDS")
-        private List<Taskcard> TASKCARDS;
+        private List<Taskcard> taskcards;
 
         @JsonProperty("SOURCES")
-        private Sources SOURCES;
+        private Sources sources;
 
         @JsonProperty("TO_KMS")
-        private ToKms TO_KMS;
+        private ToKms toKms;
 
         @JsonProperty("TO_UNIKMS")
-        private ToUnikms TO_UNIKMS;
+        private ToUnikms toUnikms;
 
         @JsonProperty("SENDORGNAME")
-        private String SENDORGNAME;
+        private String sendorgname;
 
         @JsonProperty("ENFORCEMENT")
-        private Enforcement ENFORCEMENT;
+        private Enforcement enforcement;
     }
 
     @JacksonXmlRootElement(localName = "TASKCARD")
@@ -352,9 +345,9 @@ public class ExchangeDto {
         @JacksonXmlProperty(isAttribute = true, localName = "type")
         private String type;
         @JsonProperty("CARDNAME")
-        private String CARDNAME;
+        private String cardname;
         @JsonProperty("CARDID")
-        private String CARDID;
+        private String cardid;
     }
 
     @JacksonXmlRootElement(localName = "DOCGUBUN")
@@ -428,13 +421,13 @@ public class ExchangeDto {
     @Builder
     public static class Sources {
         @JsonProperty("DIRECT")
-        private Direct DIRECT;
+        private Direct direct;
         @JsonProperty("INSTRUCTION")
-        private List<Instruction> INSTRUCTION;
+        private List<Instruction> instruction;
         @JsonProperty("DOCUMENT")
-        private List<Document> DOCUMENT;
+        private List<Document> document;
         @JsonProperty("MEMO")
-        private List<Memo> MEMO;
+        private List<Memo> memo;
     }
 
     @JacksonXmlRootElement(localName = "DIRECT")
@@ -445,9 +438,9 @@ public class ExchangeDto {
     @Builder
     public static class Direct {
         @JsonProperty("TITLE")
-        private String TITLE;
+        private String title;
         @JsonProperty("INSTRUCTED")
-        private Instructed INSTRUCTED;
+        private Instructed instructed;
     }
 
     @JacksonXmlRootElement(localName = "INSTRUCTED")
@@ -458,7 +451,7 @@ public class ExchangeDto {
     @Builder
     public static class Instructed {
         @JsonProperty("FILE")
-        private List<File> FILE;
+        private List<File> file;
     }
 
     @JacksonXmlRootElement(localName = "FILE")
@@ -469,11 +462,11 @@ public class ExchangeDto {
     @Builder
     public static class File {
         @JsonProperty("ORDER")
-        private String ORDER;
+        private String order;
         @JsonProperty("FILENAME")
-        private String FILENAME;
+        private String filename;
         @JsonProperty("DISPLAYNAME")
-        private String DISPLAYNAME;
+        private String displayname;
     }
 
     @JacksonXmlRootElement(localName = "INSTRUCTION")
@@ -484,9 +477,9 @@ public class ExchangeDto {
     @Builder
     public static class Instruction{
         @JsonProperty("TITLE")
-        private String TITLE;
+        private String title;
         @JsonProperty("INSTRUCTIONID")
-        private String INSTRUCTIONID;
+        private String instructionid;
     }
 
     @JacksonXmlRootElement(localName = "DOCUMENT")
@@ -500,22 +493,21 @@ public class ExchangeDto {
         @JacksonXmlProperty(isAttribute = true, localName = "type")
         private String type;
         @JsonProperty("TITLE")
-        private String TITLE;
+        private String title;
         @JsonProperty("DOCID")
-        private String DOCID;
+        private String docid;
     }
 
     @JacksonXmlRootElement(localName = "MEMO")
-    @XmlRootElement(name = "MEMO")
     @XmlAccessorType(XmlAccessType.FIELD)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Memo {
         @JsonProperty("TITLE")
-        private String TITLE;
+        private String title;
         @JsonProperty("MEMOID")
-        private String MEMOID;
+        private String memoid;
     }
 
     @JacksonXmlRootElement(localName = "TO_KMS")
@@ -529,9 +521,9 @@ public class ExchangeDto {
         @JacksonXmlProperty(isAttribute = true, localName = "sendflag")
         private String sendflag;
         @JsonProperty("MAPCODE")
-        private String MAPCODE;
+        private String mapcode;
         @JsonProperty("MAPNAME")
-        private String MAPNAME;
+        private String mapname;
     }
 
     @JacksonXmlRootElement(localName = "TO_UNIKMS")
@@ -554,12 +546,12 @@ public class ExchangeDto {
     @Builder
     public static class Enforcement {
         @JsonProperty("SENDNAME")
-        private String SENDNAME;
+        private String sendname;
         @XmlElementWrapper
         @JsonProperty("RECEIPT")
-        private List<Receipt> RECEIPT;
+        private List<Receipt> receipt;
         @JsonProperty("EXRECEIPT")
-        private ExReceipt EXRECEIPT;
+        private ExReceipt exreceipt;
     }
 
     @JacksonXmlRootElement(localName = "RECEIPT")
@@ -573,13 +565,13 @@ public class ExchangeDto {
         @JacksonXmlProperty(isAttribute = true, localName = "refer")
         private String refer;
         @JsonProperty("ORG")
-        private String ORG;
+        private String org;
         @JsonProperty("ORGCODE")
-        private String ORGCODE;
+        private String orgcode;
         @JsonProperty("DEPT")
-        private String DEPT;
+        private String dept;
         @JsonProperty("DEPTCODE")
-        private String DEPTCODE;
+        private String deptcode;
     }
 
     @JacksonXmlRootElement(localName = "EXRECEIPT")
@@ -590,7 +582,7 @@ public class ExchangeDto {
     @Builder
     public static class ExReceipt {
         @JsonProperty("EXTERNAL")
-        private External EXTERNAL;
+        private External external;
     }
 
     @JacksonXmlRootElement(localName = "EXTERNAL")
@@ -604,19 +596,19 @@ public class ExchangeDto {
         @JacksonXmlProperty(isAttribute = true, localName = "refer")
         private String refer;
         @JsonProperty("ORG")
-        private String ORG;
+        private String org;
         @JsonProperty("ORGCODE")
-        private String ORGCODE;
+        private String orgcode;
         @JsonProperty("DEPT")
-        private String DEPT;
+        private String dept;
         @JsonProperty("DEPTCODE")
-        private String DEPTCODE;
+        private String deptcode;
         @JsonProperty("ORGTYPE")
-        private Orgtype ORGTYPE;
+        private Orgtype orgtype;
         @JsonProperty("SYSTEMTYPE")
-        private Systemtype SYSTEMTYPE;
+        private Systemtype systemtype;
         @JsonProperty("FLOWTYPE")
-        private Flowtype FLOWTYPE;
+        private Flowtype flowtype;
     }
 
     @JacksonXmlRootElement(localName = "ORGTYPE")
@@ -692,10 +684,10 @@ public class ExchangeDto {
     @AllArgsConstructor
     @Builder
     public static class Attachments {
-        private AdministrativeDB ADMINISTRATIVE_DB;
+        private AdministrativeDB administrativeDB;
         @XmlElementWrapper
         @JsonProperty("ATTACHMENT")
-        private List<Attachment> ATTACHMENT;
+        private List<Attachment> attachment;
     }
 
     @JacksonXmlRootElement(localName = "ADMINISTRATIVE_DB")
@@ -706,9 +698,9 @@ public class ExchangeDto {
     @Builder
     public static class AdministrativeDB {
         @JsonProperty("XMLFILE")
-        private XMLFile XMLFILE;
+        private XMLFile xmlfile;
         @JsonProperty("XSLFILE")
-        private XSLFile XSLFILE;
+        private XSLFile xslfile;
     }
 
     @JacksonXmlRootElement(localName = "XMLFILE")
@@ -750,11 +742,11 @@ public class ExchangeDto {
     @Builder
     public static class AdminstrativeInfo {
         @JsonProperty("FORM_FILE")
-        private FormFile FORM_FILE;
+        private FormFile formFile;
         @JsonProperty("FORM_INFO")
-        private FormInfo FORM_INFO;
+        private FormInfo formInfo;
         @JsonProperty("FORM_DATA")
-        private FormData FORM_DATA;
+        private FormData formData;
     }
 
     @JacksonXmlRootElement(localName = "FORM_FILE")
@@ -781,10 +773,10 @@ public class ExchangeDto {
     public static class FormInfo {
         @XmlAttribute(name = "sys_id")
         @JacksonXmlProperty(isAttribute = true, localName = "sys_id")
-        private String sys_id;
+        private String sysId;
         @XmlAttribute(name = "biz_id")
         @JacksonXmlProperty(isAttribute = true, localName = "biz_id")
-        private String biz_id;
+        private String bizId;
         @XmlAttribute
         @JacksonXmlProperty(isAttribute = true, localName = "seq")
         private String seq;
@@ -800,10 +792,10 @@ public class ExchangeDto {
     public static class FormData {
         @XmlElementWrapper
         @JsonProperty("DATA_FIELD")
-        private List<DataField> DATA_FIELD;
+        private List<DataField> dataField;
         @XmlElementWrapper
         @JsonProperty("REPETITION_DATA_FIELD")
-        private List<RepetitionDataField> REPETITION_DATA_FIELD;
+        private List<RepetitionDataField> repetitionDataField;
     }
 
     @JacksonXmlRootElement(localName = "DATA_FIELD")
@@ -817,9 +809,9 @@ public class ExchangeDto {
         @JacksonXmlProperty(isAttribute = true, localName = "modifyflag")
         private String modifyflag;
         @JsonProperty("FIELD_NAME")
-        private String FIELD_NAME;
+        private String fieldName;
         @JsonProperty("FIELD_VALUE")
-        private String FIELD_VALUE;
+        private String fieldValue;
     }
 
     @JacksonXmlRootElement(localName = "REPETITION_DATA_FIELD")
@@ -868,7 +860,7 @@ public class ExchangeDto {
     @Builder
     public static class Addenda {
         @JsonProperty("ADDENDUM")
-        private Addendum ADDENDUM;
+        private Addendum addendum;
     }
 
     //@Getter
@@ -898,10 +890,10 @@ public class ExchangeDto {
     @Builder
     public static class ModificationFlag {
         @JsonProperty("MODIFIABLE")
-        private Modifiable MODIFIABLE;
+        private Modifiable modifiable;
 
         @JsonProperty("MODIFIED")
-        private String MODIFIED;
+        private String modified;
     }
 
     //@Getter

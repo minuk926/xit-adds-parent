@@ -300,31 +300,31 @@ public class ExchangeDtoTest {
     @Test
     public void jacksonXmlWriteTest() throws IOException {
         ExchangeDto.Common common = ExchangeDto.Common.builder()
-            .SENDER(
+            .sender(
                 ExchangeDto.Sender.builder()
-                    .SERVERID("ADM131000040")
-                    .USERID("hongkildong")
-                    .EMAIL("ttt@g.co.kr")
+                    .serverid("ADM131000040")
+                    .userid("hongkildong")
+                    .email("ttt@g.co.kr")
                     .build())
-            .RECEIVER(
+            .receiver(
                 ExchangeDto.Receiver.builder()
-                    .SERVERID("ADM131000040")
-                    .USERID("hongkildong")
-                    .EMAIL("ldlldld@k.r")
+                    .serverid("ADM131000040")
+                    .userid("hongkildong")
+                    .email("ldlldld@k.r")
                     .build())
-            .TITLE("업무관리시스템과 행정정보시스템간 샘플문서")
-            .CREATED_DATE("2007-01-24 14:45:34")
-            .ATTACHNUM(2)
-            .ADMINISTRATIVE_NUM("APP20060000000004075")
+            .title("업무관리시스템과 행정정보시스템간 샘플문서")
+            .createdDate("2007-01-24 14:45:34")
+            .attachnum(2)
+            .administrativeNum("APP20060000000004075")
             .build();
 
         ExchangeDto.Direction direction = ExchangeDto.Direction.builder()
-            .TO_DOCUMENT_SYSTEM(
+            .toDocumentSystem(
                 ExchangeDto.ToDocumentSystem.builder()
                     .notification("all")
-                    .MODIFICATION_FLAG(
+                    .modificationFlag(
                         ExchangeDto.ModificationFlag.builder()
-                            .MODIFIABLE(
+                            .modifiable(
                                 ExchangeDto.Modifiable.builder()
                                     .modifyflag("yes")
                                     .build())
@@ -334,14 +334,14 @@ public class ExchangeDtoTest {
             .build();
 
         ExchangeDto.Header header = ExchangeDto.Header.builder()
-            .COMMON(common)
-            .DIRECTION(direction)
+            .common(common)
+            .direction(direction)
             .build();
 
 
         ExchangeDto dto = ExchangeDto.builder()
-            .HEADER(header)
-            .BODY(
+            .hseader(header)
+            .body(
                 ExchangeDto.Body.builder()
                     .value("업무관리시스템과 행정정보시스템간 샘플 기안문서 본문")
                     .build())

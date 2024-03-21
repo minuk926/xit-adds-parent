@@ -1,17 +1,16 @@
 
-package kr.xit.inf.nims.model;
+package kr.xit.inf.nims.model.aar;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
-
 /**
  * <p>headerAAR complex type에 대한 Java 클래스입니다.
- * 
+ *
  * <p>다음 스키마 단편이 이 클래스에 포함되는 필요한 콘텐츠를 지정합니다.
- * 
+ *
  * <pre>
  * &lt;complexType name="headerAAR"&gt;
  *   &lt;complexContent&gt;
@@ -46,8 +45,8 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "headerAAR", namespace = "https://www.nims.or.kr/schema/nims", propOrder = {
@@ -129,11 +128,11 @@ public class HeaderAAR {
 
     /**
      * hdrde 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getHDRDE() {
         return hdrde;
@@ -141,11 +140,11 @@ public class HeaderAAR {
 
     /**
      * hdrde 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setHDRDE(String value) {
         this.hdrde = value;
@@ -153,11 +152,11 @@ public class HeaderAAR {
 
     /**
      * bsshcd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getBSSHCD() {
         return bsshcd;
@@ -165,11 +164,11 @@ public class HeaderAAR {
 
     /**
      * bsshcd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setBSSHCD(String value) {
         this.bsshcd = value;
@@ -177,11 +176,11 @@ public class HeaderAAR {
 
     /**
      * rptsecd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRPTSECD() {
         return rptsecd;
@@ -189,11 +188,11 @@ public class HeaderAAR {
 
     /**
      * rptsecd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRPTSECD(String value) {
         this.rptsecd = value;
@@ -201,11 +200,11 @@ public class HeaderAAR {
 
     /**
      * usrrptidno 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getUSRRPTIDNO() {
         return usrrptidno;
@@ -213,11 +212,11 @@ public class HeaderAAR {
 
     /**
      * usrrptidno 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setUSRRPTIDNO(String value) {
         this.usrrptidno = value;
@@ -225,11 +224,11 @@ public class HeaderAAR {
 
     /**
      * refusrrptidno 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getREFUSRRPTIDNO() {
         return refusrrptidno;
@@ -237,11 +236,11 @@ public class HeaderAAR {
 
     /**
      * refusrrptidno 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setREFUSRRPTIDNO(String value) {
         this.refusrrptidno = value;
@@ -249,11 +248,11 @@ public class HeaderAAR {
 
     /**
      * rpttycd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRPTTYCD() {
         return rpttycd;
@@ -261,11 +260,11 @@ public class HeaderAAR {
 
     /**
      * rpttycd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRPTTYCD(String value) {
         this.rpttycd = value;
@@ -273,11 +272,11 @@ public class HeaderAAR {
 
     /**
      * rmk 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRMK() {
         return rmk;
@@ -285,11 +284,11 @@ public class HeaderAAR {
 
     /**
      * rmk 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRMK(String value) {
         this.rmk = value;
@@ -297,11 +296,11 @@ public class HeaderAAR {
 
     /**
      * rptrnm 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRPTRNM() {
         return rptrnm;
@@ -309,11 +308,11 @@ public class HeaderAAR {
 
     /**
      * rptrnm 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRPTRNM(String value) {
         this.rptrnm = value;
@@ -321,11 +320,11 @@ public class HeaderAAR {
 
     /**
      * rptrentrpsnm 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRPTRENTRPSNM() {
         return rptrentrpsnm;
@@ -333,11 +332,11 @@ public class HeaderAAR {
 
     /**
      * rptrentrpsnm 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRPTRENTRPSNM(String value) {
         this.rptrentrpsnm = value;
@@ -345,11 +344,11 @@ public class HeaderAAR {
 
     /**
      * chrgnm 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCHRGNM() {
         return chrgnm;
@@ -357,11 +356,11 @@ public class HeaderAAR {
 
     /**
      * chrgnm 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCHRGNM(String value) {
         this.chrgnm = value;
@@ -369,11 +368,11 @@ public class HeaderAAR {
 
     /**
      * chrgtelno 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCHRGTELNO() {
         return chrgtelno;
@@ -381,11 +380,11 @@ public class HeaderAAR {
 
     /**
      * chrgtelno 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCHRGTELNO(String value) {
         this.chrgtelno = value;
@@ -393,11 +392,11 @@ public class HeaderAAR {
 
     /**
      * chrgmpno 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCHRGMPNO() {
         return chrgmpno;
@@ -405,11 +404,11 @@ public class HeaderAAR {
 
     /**
      * chrgmpno 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCHRGMPNO(String value) {
         this.chrgmpno = value;
@@ -417,11 +416,11 @@ public class HeaderAAR {
 
     /**
      * rnddtlrptcnt 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRNDDTLRPTCNT() {
         return rnddtlrptcnt;
@@ -429,11 +428,11 @@ public class HeaderAAR {
 
     /**
      * rnddtlrptcnt 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRNDDTLRPTCNT(String value) {
         this.rnddtlrptcnt = value;
@@ -441,11 +440,11 @@ public class HeaderAAR {
 
     /**
      * dsusesecd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDSUSESECD() {
         return dsusesecd;
@@ -453,11 +452,11 @@ public class HeaderAAR {
 
     /**
      * dsusesecd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDSUSESECD(String value) {
         this.dsusesecd = value;
@@ -465,11 +464,11 @@ public class HeaderAAR {
 
     /**
      * dsuseprvcd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDSUSEPRVCD() {
         return dsuseprvcd;
@@ -477,11 +476,11 @@ public class HeaderAAR {
 
     /**
      * dsuseprvcd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDSUSEPRVCD(String value) {
         this.dsuseprvcd = value;
@@ -489,11 +488,11 @@ public class HeaderAAR {
 
     /**
      * dsusemthcd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDSUSEMTHCD() {
         return dsusemthcd;
@@ -501,11 +500,11 @@ public class HeaderAAR {
 
     /**
      * dsusemthcd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDSUSEMTHCD(String value) {
         this.dsusemthcd = value;
@@ -513,11 +512,11 @@ public class HeaderAAR {
 
     /**
      * dsuseloc 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDSUSELOC() {
         return dsuseloc;
@@ -525,11 +524,11 @@ public class HeaderAAR {
 
     /**
      * dsuseloc 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDSUSELOC(String value) {
         this.dsuseloc = value;
@@ -537,11 +536,11 @@ public class HeaderAAR {
 
     /**
      * dsusede 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDSUSEDE() {
         return dsusede;
@@ -549,11 +548,11 @@ public class HeaderAAR {
 
     /**
      * dsusede 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDSUSEDE(String value) {
         this.dsusede = value;
@@ -561,11 +560,11 @@ public class HeaderAAR {
 
     /**
      * dsuseinsttcd 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDSUSEINSTTCD() {
         return dsuseinsttcd;
@@ -573,11 +572,11 @@ public class HeaderAAR {
 
     /**
      * dsuseinsttcd 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDSUSEINSTTCD(String value) {
         this.dsuseinsttcd = value;
@@ -585,11 +584,11 @@ public class HeaderAAR {
 
     /**
      * atchfileco 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getATCHFILECO() {
         return atchfileco;
@@ -597,11 +596,11 @@ public class HeaderAAR {
 
     /**
      * atchfileco 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setATCHFILECO(String value) {
         this.atchfileco = value;
@@ -609,11 +608,11 @@ public class HeaderAAR {
 
     /**
      * registerid 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getREGISTERID() {
         return registerid;
@@ -621,11 +620,11 @@ public class HeaderAAR {
 
     /**
      * registerid 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setREGISTERID(String value) {
         this.registerid = value;
@@ -633,11 +632,11 @@ public class HeaderAAR {
 
     /**
      * filecreatdt 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getFILECREATDT() {
         return filecreatdt;
@@ -645,11 +644,11 @@ public class HeaderAAR {
 
     /**
      * filecreatdt 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setFILECREATDT(String value) {
         this.filecreatdt = value;
@@ -657,11 +656,11 @@ public class HeaderAAR {
 
     /**
      * lines 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link LinesAAR }
-     *     
+     *
      */
     public LinesAAR getLINES() {
         return lines;
@@ -669,11 +668,11 @@ public class HeaderAAR {
 
     /**
      * lines 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link LinesAAR }
-     *     
+     *
      */
     public void setLINES(LinesAAR value) {
         this.lines = value;
@@ -681,11 +680,11 @@ public class HeaderAAR {
 
     /**
      * atchfiles 속성의 값을 가져옵니다.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link AtchFiles }
-     *     
+     *
      */
     public AtchFiles getATCHFILES() {
         return atchfiles;
@@ -693,11 +692,11 @@ public class HeaderAAR {
 
     /**
      * atchfiles 속성의 값을 설정합니다.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link AtchFiles }
-     *     
+     *
      */
     public void setATCHFILES(AtchFiles value) {
         this.atchfiles = value;
