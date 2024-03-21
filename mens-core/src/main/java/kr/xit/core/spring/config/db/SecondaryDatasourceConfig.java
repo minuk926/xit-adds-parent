@@ -1,13 +1,16 @@
 package kr.xit.core.spring.config.db;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
-import kr.xit.core.consts.Constants;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import kr.xit.core.consts.Constants;
 
 /**
  * <pre>
@@ -33,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
  * @see SecondaryMybatisConfig
  */
 @Configuration
-@ConditionalOnProperty(value = "spring.datasource.hikari.secondary.username")
+@ConditionalOnProperty(value = "spring.datasource.hikari.secondary.username", matchIfMissing = false)
 public class SecondaryDatasourceConfig {
     @Bean(name = "secondaryHikariConfig")
     @ConfigurationProperties(prefix = "spring.datasource.hikari.secondary")

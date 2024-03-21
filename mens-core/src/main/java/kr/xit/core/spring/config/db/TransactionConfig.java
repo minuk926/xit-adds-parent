@@ -1,17 +1,24 @@
 package kr.xit.core.spring.config.db;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.sql.DataSource;
-import kr.xit.core.consts.Constants;
+
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.transaction.ChainedTransactionManager;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import kr.xit.core.consts.Constants;
 
 /**
  * <pre>
@@ -55,24 +62,60 @@ public class TransactionConfig {
     /**
      * primary DB & secondary DB Transaction binding
      * @param primaryDS primary DataSource
-     * @param secondaryDS secondary DataSource
+     * @param secondDS secondary DataSource
      * @return PlatformTransactionManager
      */
-    @ConditionalOnProperty(value = "spring.datasource.hikari.secondary.username")
+    @ConditionalOnBean(SecondaryMybatisConfig.class)
     @Primary
     @Bean
     public PlatformTransactionManager transactionManager(@Qualifier(Constants.PRIMARY_DATA_SOURCE)DataSource primaryDS,
-                                                         @Qualifier(Constants.SECONDARY_DATA_SOURCE) DataSource secondaryDS) {
-        DataSourceTransactionManager mariaTm = new DataSourceTransactionManager(primaryDS);
-        mariaTm.setGlobalRollbackOnParticipationFailure(false);
-        mariaTm.setNestedTransactionAllowed(true);
+                                                         @Qualifier(Constants.SECONDARY_DATA_SOURCE) DataSource secondDS) {
+        DataSourceTransactionManager primaryTm = new DataSourceTransactionManager(primaryDS);
+        primaryTm.setGlobalRollbackOnParticipationFailure(false);
+        primaryTm.setNestedTransactionAllowed(true);
 
-        DataSourceTransactionManager oracleTm = new DataSourceTransactionManager(secondaryDS);
-        oracleTm.setGlobalRollbackOnParticipationFailure(false);
-        oracleTm.setNestedTransactionAllowed(true);
+        DataSourceTransactionManager secondTm = new DataSourceTransactionManager(secondDS);
+        secondTm.setGlobalRollbackOnParticipationFailure(false);
+        secondTm.setNestedTransactionAllowed(true);
 
         // creates chained transaction manager
-        return new ChainedTransactionManager(mariaTm, oracleTm);
+        //return new ChainedTransactionManager(primaryTm, secondTm);
+
+        // Creates a list of transaction managers
+        List<PlatformTransactionManager> transactionManagers = Arrays.asList(primaryTm, secondTm);
+
+        // Creates a custom transaction manager that delegates to a list of transaction managers
+        return new CustomTransactionManager(transactionManagers);
     }
     /////////////////////////////////////////////////////////////////////////////////////
+
+    // Custom transaction manager implementation
+    private static class CustomTransactionManager implements PlatformTransactionManager {
+
+        private final List<PlatformTransactionManager> transactionManagers;
+
+        public CustomTransactionManager(List<PlatformTransactionManager> transactionManagers) {
+            this.transactionManagers = transactionManagers;
+        }
+
+        @Override
+        public void commit(TransactionStatus status) throws TransactionException {
+            for (PlatformTransactionManager transactionManager : transactionManagers) {
+                transactionManager.commit(status);
+            }
+        }
+
+        @Override
+        public TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
+            // We're assuming all transaction managers support the same transaction definition
+            return transactionManagers.get(0).getTransaction(definition);
+        }
+
+        @Override
+        public void rollback(TransactionStatus status) throws TransactionException {
+            for (PlatformTransactionManager transactionManager : transactionManagers) {
+                transactionManager.rollback(status);
+            }
+        }
+    }
 }

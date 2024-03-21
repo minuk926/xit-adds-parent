@@ -1,17 +1,19 @@
 package kr.xit.core.spring.config.db;
 
 import javax.sql.DataSource;
-import kr.xit.core.consts.Constants;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+import kr.xit.core.consts.Constants;
 
 /**
  * <pre>
@@ -31,7 +33,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  * @see SecondaryDatasourceConfig
  */
 @Configuration
-@ConditionalOnProperty(value = "spring.datasource.hikari.secondary.username")
+@ConditionalOnBean(SecondaryDatasourceConfig.class)
 @MapperScan(
         basePackages = {"kr.xit.biz.sms.mapper"},
         sqlSessionFactoryRef = Constants.SECONDARY_SQL_SESSION

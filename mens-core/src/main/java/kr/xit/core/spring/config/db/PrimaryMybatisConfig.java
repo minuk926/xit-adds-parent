@@ -1,21 +1,23 @@
 package kr.xit.core.spring.config.db;
 
 import javax.sql.DataSource;
-import kr.xit.core.consts.Constants;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
+
+import kr.xit.core.consts.Constants;
 
 /**
  * <pre>
@@ -35,7 +37,7 @@ import org.springframework.jdbc.support.lob.DefaultLobHandler;
  * @see PrimaryDatasourceConfig
  */
 @Configuration
-@ConditionalOnProperty(value = "spring.datasource.hikari.primary.username")
+@ConditionalOnBean(PrimaryDatasourceConfig.class)
 @MapperScan(
         basePackages = {
             "egovframework.**.mapper",
