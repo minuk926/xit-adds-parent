@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="EUC-KR"?>
-    <!--
-    filename:
-        exchange_mis.dtd
-
-    Typical usage:
-        <?xml version="1.0" encoding="EUC-KR" ?>
-        <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd"
-        <EXCHANGE> ... </EXCHANGE>
-    -->
     <!ELEMENT EXCHANGE (HEADER, BODY?, ATTACHMENTS?, ADMINISTRATIVE_INFO?)>
     <!ELEMENT HEADER (COMMON, DIRECTION, ADDENDA?)>
     <!ELEMENT COMMON (SENDER, RECEIVER, TITLE, CREATED_DATE, ATTACHNUM, ADMINISTRATIVE_NUM)>

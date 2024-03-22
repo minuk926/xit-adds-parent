@@ -2,8 +2,13 @@ package kr.xit.inf.mois.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -14,10 +19,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -37,7 +47,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @ExtendWith(SpringExtension.class)
-public class ExchangeDtoTest {
+public class ExchangeMisDtoTest {
 
     String xml = """
         <?xml version="1.0" encoding="EUC-KR"?>
@@ -127,6 +137,12 @@ public class ExchangeDtoTest {
                  <MODIFICATION_FLAG>
                    <MODIFIABLE modifyflag="yes"/>
                  </MODIFICATION_FLAG>
+                 <BODY_MODIFICATIONFLAG>
+                   <BODY_MODIFIABLE modifyflag="yes"/>
+                 </BODY_MODIFICATIONFLAG>
+                 <DOC_INFO>
+                   <SUMMARY><![CDATA[문서요지입니다.]]></SUMMARY>
+                 </DOC_INFO>
                </TO_DOCUMENT_SYSTEM>
              </DIRECTION>
            </HEADER>
@@ -143,8 +159,22 @@ public class ExchangeDtoTest {
                <![CDATA[업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_2.hwp]]>
              </ATTACHMENT>
            </ATTACHMENTS>
+           <ADMINISTRATIVE_INFO>
+             <FORM_INFO sys_id="sys001" biz_id="biz001" seq="001" />
+             <FORM_DATA>
+               <DATA_FIELD modifyflag="no">
+                 <FIELD_NAME><![CDATA[전표번호]]></FIELD_NAME>
+                 <FIELD_VALUE><![CDATA[1-1]]></FIELD_VALUE>
+               </DATA_FIELD>
+               <DATA_FIELD modifyflag="no">
+                 <FIELD_NAME><![CDATA[회계일자]]></FIELD_NAME>
+                 <FIELD_VALUE><![CDATA[2007-01-24 14:45:34]]></FIELD_VALUE>
+               </DATA_FIELD>
+             </FORM_DATA>
+           </ADMINISTRATIVE_INFO>
          </EXCHANGE>
         """;
+    //<!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
     String xml3 = """
         <?xml version="1.0" encoding="EUC-KR"?>
         <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
@@ -204,6 +234,16 @@ public class ExchangeDtoTest {
                  <MODIFICATION_FLAG>
                    <MODIFIABLE modifyflag="no"/>
                  </MODIFICATION_FLAG>
+                 <BODY_MODIFICATIONFLAG>
+                   <BODY_MODIFIABLE modifyflag="yes"/>
+                   <BODY_MODIFIED>2007-01-25 14:45:34</BODY_MODIFIED>
+                 </BODY_MODIFICATIONFLAG>
+                 <BODY_TEXT>
+              <![CDATA[업무관리시스템과 행정정보시스템간 샘플 기안문서 본문
+        		본 문서는 업무관리시스템과 행정정보시스템 간 기안문서의 본문 샘플 내용임
+        		본문은 수정된 본문의 text를 추출하여 전송하는 내용임
+                        끝.]]>
+                 </BODY_TEXT>
                </TO_ADMINISTRATIVE_SYSTEM>
              </DIRECTION>
              <ADDENDA>
@@ -222,40 +262,53 @@ public class ExchangeDtoTest {
                <![CDATA[업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_2.hwp]]>
              </ATTACHMENT>
            </ATTACHMENTS>
+           <ADMINISTRATIVE_INFO>
+             <FORM_INFO sys_id="sys001" biz_id="biz001" seq="001" />
+             <FORM_DATA>
+               <DATA_FIELD modifyflag="no">
+                 <FIELD_NAME><![CDATA[전표번호]]></FIELD_NAME>
+                 <FIELD_VALUE><![CDATA[1-1]]></FIELD_VALUE>
+               </DATA_FIELD>
+               <DATA_FIELD modifyflag="no">
+                 <FIELD_NAME><![CDATA[회계일자]]></FIELD_NAME>
+                 <FIELD_VALUE><![CDATA[2007-01-25 14:45:34]]></FIELD_VALUE>
+               </DATA_FIELD>
+             </FORM_DATA>
+           </ADMINISTRATIVE_INFO>
          </EXCHANGE>
         """;
 
-    @DisplayName("전자결재 xml read 테스트")
+    @DisplayName("전자문서 xml read 테스트")
     @Test
-    public void exchangeXmlReadTest() throws IOException {
+    public void exchangeMisXmlReadTest() throws IOException {
         JacksonXmlModule jacksonXmlModule = new JacksonXmlModule();
         jacksonXmlModule.setDefaultUseWrapper(false);
         //ObjectMapper xmlMapper = new XmlMapper(jacksonXmlModule);
         XmlMapper xmlMapper = new XmlMapper(jacksonXmlModule);
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-        ExchangeDto dto
-            = xmlMapper.readValue(xml, ExchangeDto.class);
+        ExchangeMisDto dto
+            = xmlMapper.readValue(xml2, ExchangeMisDto.class);
         log.info("dto: {}", dto);
 
         assertNotNull(dto);
 
-        //xmlMapper.writeValue(new File("open_exchange_exchange2-1.xml"), dto);
+        //xmlMapper.writeValue(new File("open_exchange_exchange_mis_2-1.xml"), dto);
         xmlMapper.writeValue(System.out, dto);
     }
 
-    @DisplayName("전자결재 xml write 테스트")
+    @DisplayName("전자문서 xml write 테스트")
     @Test
-    public void exchangeXmlWriteTest() throws IOException {
-        ExchangeDto.Common common = ExchangeDto.Common.builder()
+    public void exchangeMisXmlWriteTest() throws IOException {
+        ExchangeMisDto.Common common = ExchangeMisDto.Common.builder()
             .sender(
-                ExchangeDto.Sender.builder()
+                ExchangeMisDto.Sender.builder()
                     .serverid("ADM131000040")
                     .userid("hongkildong")
                     .email("ttt@g.co.kr")
                     .build())
             .receiver(
-                ExchangeDto.Receiver.builder()
+                ExchangeMisDto.Receiver.builder()
                     .serverid("ADM131000040")
                     .userid("hongkildong")
                     .email("ldlldld@k.r")
@@ -266,14 +319,14 @@ public class ExchangeDtoTest {
             .administrativeNum("APP20060000000004075")
             .build();
 
-        ExchangeDto.Direction direction = ExchangeDto.Direction.builder()
+        ExchangeMisDto.Direction direction = ExchangeMisDto.Direction.builder()
             .toDocumentSystem(
-                ExchangeDto.ToDocumentSystem.builder()
+                ExchangeMisDto.ToDocumentSystem.builder()
                     .notification("all")
                     .modificationFlag(
-                        ExchangeDto.ModificationFlag.builder()
+                        ExchangeMisDto.ModificationFlag.builder()
                             .modifiable(
-                                ExchangeDto.Modifiable.builder()
+                                ExchangeMisDto.Modifiable.builder()
                                     .modifyflag("yes")
                                     .build())
                             .build())
@@ -281,15 +334,18 @@ public class ExchangeDtoTest {
             )
             .build();
 
-        ExchangeDto.Header header = ExchangeDto.Header.builder()
+        ExchangeMisDto.Header header = ExchangeMisDto.Header.builder()
             .common(common)
-            .direction(direction)
+            //.direction(direction)
             .build();
 
 
-        ExchangeDto dto = ExchangeDto.builder()
+        ExchangeMisDto dto = ExchangeMisDto.builder()
             .header(header)
-            .body("업무관리시스템과 행정정보시스템간 샘플 기안문서 본문")
+            .body(
+                ExchangeMisDto.Body.builder()
+                    .value("업무관리시스템과 행정정보시스템간 샘플 기안문서 본문")
+                    .build())
             .build();
 
 
@@ -305,9 +361,9 @@ public class ExchangeDtoTest {
         XMLOutputFactory factory = mapper.getFactory().getXMLOutputFactory();
 
         String dtd = """
-            <!DOCTYPE EXCHANGE SYSTEM "exchange.dtd">
+            <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
             """;
-        try (FileWriter w = new FileWriter("exchange_exchange11-1.xml")) {
+        try (FileWriter w = new FileWriter("open_exchange_exchange_mis_11-1.xml")) {
             XMLStreamWriter sw = factory.createXMLStreamWriter(w);
             sw.writeStartDocument("EUC-KR", "1.0");
             sw.writeDTD("\n"+dtd);
@@ -320,5 +376,73 @@ public class ExchangeDtoTest {
 
         String dtoXml = mapper.writeValueAsString(dto);
         log.info("dtoXml: {}", dtoXml);
+    }
+
+    @Test
+    @DisplayName("unmarshal 테스트")
+    public void jaxbUnmarshallerTest() throws JAXBException, IOException {
+
+        InputStream is = new ByteArrayInputStream(xml.getBytes("EUC-KR"));
+        InputStream is2 = new ByteArrayInputStream(xml2.getBytes("EUC-KR"));
+        InputStream is3 = new ByteArrayInputStream(xml3.getBytes("EUC-KR"));
+
+        // Given
+        //FileInputStream fileInputStream = new FileInputStream("test-data/data1.xml");
+        JAXBContext jaxbContext = JAXBContext.newInstance(ExchangeMisDto.class);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+        // When
+        ExchangeMisDto dto = (ExchangeMisDto)unmarshaller.unmarshal(is);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(dto, new File("open_exchange_exchange2.xml"));
+
+        // ExchangeDto dto2 = (ExchangeDto) unmarshaller.unmarshal(is2);
+        // ExchangeDto dto3 = (ExchangeDto) unmarshaller.unmarshal(is3);
+        is.close();
+        is2.close();
+        is3.close();
+
+        // Then
+        assertNotNull(dto);
+    }
+
+    @Test
+    @DisplayName("marshal 테스트")
+    public void jaxbMarshalTest() throws JAXBException, IOException {
+        // Given
+        File file = new File("d:/data/data3.xml");
+        JAXBContext jaxbContext = JAXBContext.newInstance(ExchangeMisDto.class);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+
+        ExchangeMisDto dto = new ExchangeMisDto();
+
+        // When
+
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(dto, file);
+
+        FileInputStream fileInputStream = new FileInputStream(file);
+        byte[] bytes = fileInputStream.readAllBytes();
+        String content = new String(bytes);
+
+        // StringWriter sw = new StringWriter();
+        // marshaller.marshal(dto, sw);
+        // String xml = sw.toString();
+    }
+
+    // XML 문자열에 DOCTYPE을 추가하는 메서드
+    private static String addDocType(String xmlString) {
+        StringWriter sw = new StringWriter();
+        sw.append("<?xml version=\"1.0\" encoding=\"EUC-KR\"?>\n");
+        sw.append("<!DOCTYPE EXCHANGE SYSTEM \"exchange_mis.dtd\">\n");
+        sw.append(xmlString);
+        return sw.toString();
+    }
+
+    private static void writeToFile(String content, File file) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.writeValue(file, content);
     }
 }
