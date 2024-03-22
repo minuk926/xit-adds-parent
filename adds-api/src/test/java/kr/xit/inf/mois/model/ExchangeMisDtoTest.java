@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -283,8 +284,9 @@ public class ExchangeMisDtoTest {
     public void exchangeMisXmlReadTest() throws IOException {
         JacksonXmlModule jacksonXmlModule = new JacksonXmlModule();
         jacksonXmlModule.setDefaultUseWrapper(false);
-        //ObjectMapper xmlMapper = new XmlMapper(jacksonXmlModule);
         XmlMapper xmlMapper = new XmlMapper(jacksonXmlModule);
+
+        xmlMapper.enable(ToXmlGenerator.Feature.WRITE_XML_1_1); // XML 1.1 지원
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         ExchangeMisDto dto
@@ -336,7 +338,7 @@ public class ExchangeMisDtoTest {
 
         ExchangeMisDto.Header header = ExchangeMisDto.Header.builder()
             .common(common)
-            //.direction(direction)
+            .direction(direction)
             .build();
 
 
@@ -349,13 +351,10 @@ public class ExchangeMisDtoTest {
             .build();
 
 
-        /*
-        <?xml version="1.0" encoding="EUC-KR"?>
-        <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
-        처리
-        */
+
+
         JacksonXmlModule module = new JacksonXmlModule();
-        module.setDefaultUseWrapper(true);
+        module.setDefaultUseWrapper(false);
         XmlMapper mapper = new XmlMapper(module);
 
         XMLOutputFactory factory = mapper.getFactory().getXMLOutputFactory();
@@ -367,12 +366,16 @@ public class ExchangeMisDtoTest {
             XMLStreamWriter sw = factory.createXMLStreamWriter(w);
             sw.writeStartDocument("EUC-KR", "1.0");
             sw.writeDTD("\n"+dtd);
+
+            //mapper.enable(ToXmlGenerator.Feature.WRITE_XML_1_1); // XML 1.1 지원
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             mapper.writeValue(sw, dto);
 
         }catch (XMLStreamException e) {
             e.printStackTrace();
         }
+
+
 
         String dtoXml = mapper.writeValueAsString(dto);
         log.info("dtoXml: {}", dtoXml);
