@@ -42,7 +42,12 @@ server:
       enabled: true
       charset: utf-8
       force: true
-#  forward-headers-strategy: FRAMEWORK #NATIVE|FRAMEWORK
+  #  forward-headers-strategy: FRAMEWORK #NATIVE|FRAMEWORK
+  error:
+    include-exception: on
+    include-stacktrace: always
+    include-message: always
+    include-binding-errors: always
 
 spring:
   mvc:
