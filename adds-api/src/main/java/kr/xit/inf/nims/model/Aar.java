@@ -13,6 +13,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+/**
+ * <pre>
+ * description : NIMS xsd 구조 정의
+ *               마약류 관리 시스템 연계시 사용되는 xsd 구조 정의
+ *               -> 폐기(AAR)
+ *
+ * packageName : kr.xit.inf.nims.model
+ * fileName    : Aar
+ * author      : limju
+ * date        : 2024-03-22
+ * ======================================================================
+ * 변경일         변경자        변경 내용
+ * ----------------------------------------------------------------------
+ * 2024-03-22    limju       최초 생성
+ *
+ * </pre>
+ */
 @JacksonXmlRootElement(localName = "aar_regist", namespace = "https://www.nims.or.kr/schema/nims")
 @NoArgsConstructor
 @AllArgsConstructor

@@ -56,134 +56,7 @@ public class ExchangeMisDtoTest {
     private static final String XML_NAMESPACE = "<https://kkoon9.tistory.com/>";
     private static final String PREFIX = "kkoon9";
 
-
     String xml = """
-        <?xml version="1.0" encoding="EUC-KR"?>
-        <EXCHANGE>
-            <HEADER>
-                <COMMON>
-                    <SENDER>
-                        <SERVERID>DOC999999901</SERVERID>
-                        <USERID>admin</USERID>
-                        <EMAIL/>
-                    </SENDER>
-                    <RECEIVER>
-                        <SERVERID>DOC123456701</SERVERID>
-                        <USERID>admin</USERID>
-                    </RECEIVER>
-                    <TITLE>TEST TITLE_DOC</TITLE>
-                    <CREATED_DATE>2020-12-08 14:00:00</CREATED_DATE>
-                    <ATTACHNUM>1</ATTACHNUM>
-                    <ADMINISTRATIVE_NUM>TEST1234567890</ADMINISTRATIVE_NUM>
-                </COMMON>
-                <DIRECTION>
-                    <TO_DOCUMENT_SYSTEM notification="all">
-                        <MODIFICATION_FLAG>
-                            <MODIFIABLE modifyflag="yes"/>
-                        </MODIFICATION_FLAG>
-                    </TO_DOCUMENT_SYSTEM>
-                </DIRECTION>
-            </HEADER>
-            <BODY><![CDATA[연계테스트 문서입니다.]]></BODY>
-            <ATTACHMENTS>
-                <ATTACHMENT filename="attach_attach_title.txt">TEST_ATTACH.txt</ATTACHMENT>
-            </ATTACHMENTS>
-        </EXCHANGE>
-        """;
-
-    //<!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
-
-    String xml2 = """
-        <?xml version="1.0" encoding="EUC-KR"?>
-         <EXCHANGE>
-           <HEADER>
-             <COMMON>
-               <SENDER>
-                 <SERVERID>ADM131000001</SERVERID>
-                 <USERID>hongkildong</USERID>
-                 <EMAIL>hongkildong@sample.gcc.go.kr</EMAIL>
-               </SENDER>
-               <RECEIVER>
-                 <SERVERID>ADM131000040</SERVERID>
-                 <USERID>hongkildong</USERID>
-                 <EMAIL>hongkildong@sample.gcc.go.kr</EMAIL>
-               </RECEIVER>
-               <TITLE><![CDATA[업무관리시스템과 행정정보시스템간 샘플문서]]></TITLE>
-               <CREATED_DATE>2007-01-24 14:45:34</CREATED_DATE>
-               <ATTACHNUM>2</ATTACHNUM>
-               <ADMINISTRATIVE_NUM>APP20060000000004075</ADMINISTRATIVE_NUM>
-             </COMMON>
-             <DIRECTION>
-               <TO_DOCUMENT_SYSTEM notification="all">
-                 <LINES>
-                   <LINE>
-                     <LEVEL>1</LEVEL>
-                     <SANCTION result="미처리" type="기안">
-                       <PERSON>
-                         <USERID>hongkildong</USERID>
-                         <NAME>홍길동</NAME>
-                         <POSITION>전산주사</POSITION>
-                         <DEPT><![CDATA[고도화팀]]></DEPT>
-                         <ORG><![CDATA[행정안전부]]></ORG>
-                       </PERSON>
-                       <DATE>2007-01-24 14:45:34</DATE>
-                     </SANCTION>
-                   </LINE>
-                   <LINE>
-                     <LEVEL>final</LEVEL>
-                     <SANCTION result="미처리" type="결재">
-                       <PERSON>
-                         <USERID>parkchulsoo</USERID>
-                         <NAME>박철수</NAME>
-                         <POSITION>팀장</POSITION>
-                         <DEPT><![CDATA[고도화팀]]></DEPT>
-                         <ORG><![CDATA[행정안전부]]></ORG>
-                       </PERSON>              \s
-                     </SANCTION>
-                   </LINE>
-                 </LINES>
-                 <MODIFICATION_FLAG>
-                   <MODIFIABLE modifyflag="yes"/>
-                 </MODIFICATION_FLAG>
-                 <BODY_MODIFICATIONFLAG>
-                   <BODY_MODIFIABLE modifyflag="yes"/>
-                 </BODY_MODIFICATIONFLAG>
-                 <DOC_INFO>
-                   <SUMMARY><![CDATA[문서요지입니다.]]></SUMMARY>
-                 </DOC_INFO>
-               </TO_DOCUMENT_SYSTEM>
-             </DIRECTION>
-           </HEADER>
-           <BODY>
-              <![CDATA[업무관리시스템과 행정정보시스템간 샘플 기안문서 본문
-        		본 문서는 업무관리시스템과 행정정보시스템 간 기안문서의 본문 샘플 내용임
-                        끝.]]>
-           </BODY>
-           <ATTACHMENTS>
-             <ATTACHMENT filename="attach_attach_291ddc46bf184029ffe4070328020703.hwp" desc="001">
-               <![CDATA[업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_1.hwp]]>
-             </ATTACHMENT>
-             <ATTACHMENT filename="attach_attach_101bbc46bf184029ffe4070328010291.hwp" desc="002">
-               <![CDATA[업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_2.hwp]]>
-             </ATTACHMENT>
-           </ATTACHMENTS>
-           <ADMINISTRATIVE_INFO>
-             <FORM_INFO sys_id="sys001" biz_id="biz001" seq="001" />
-             <FORM_DATA>
-               <DATA_FIELD modifyflag="no">
-                 <FIELD_NAME><![CDATA[전표번호]]></FIELD_NAME>
-                 <FIELD_VALUE><![CDATA[1-1]]></FIELD_VALUE>
-               </DATA_FIELD>
-               <DATA_FIELD modifyflag="no">
-                 <FIELD_NAME><![CDATA[회계일자]]></FIELD_NAME>
-                 <FIELD_VALUE><![CDATA[2007-01-24 14:45:34]]></FIELD_VALUE>
-               </DATA_FIELD>
-             </FORM_DATA>
-           </ADMINISTRATIVE_INFO>
-         </EXCHANGE>
-        """;
-    //<!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
-    String xml3 = """
         <?xml version="1.0" encoding="EUC-KR"?>
         <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
          <EXCHANGE>
@@ -297,7 +170,7 @@ public class ExchangeMisDtoTest {
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         ExchangeMisDto dto
-            = xmlMapper.readValue(xml3, ExchangeMisDto.class);
+            = xmlMapper.readValue(xml, ExchangeMisDto.class);
         log.info("dto: {}", dto);
 
         assertNotNull(dto);
@@ -390,8 +263,6 @@ public class ExchangeMisDtoTest {
     public void jaxbUnmarshallerTest() throws JAXBException, IOException {
 
         InputStream is = new ByteArrayInputStream(xml.getBytes("EUC-KR"));
-        InputStream is2 = new ByteArrayInputStream(xml2.getBytes("EUC-KR"));
-        InputStream is3 = new ByteArrayInputStream(xml3.getBytes("EUC-KR"));
 
         // Given
         //FileInputStream fileInputStream = new FileInputStream("test-data/data1.xml");
@@ -407,8 +278,6 @@ public class ExchangeMisDtoTest {
         // ExchangeDto dto2 = (ExchangeDto) unmarshaller.unmarshal(is2);
         // ExchangeDto dto3 = (ExchangeDto) unmarshaller.unmarshal(is3);
         is.close();
-        is2.close();
-        is3.close();
 
         // Then
         assertNotNull(dto);
