@@ -1,13 +1,9 @@
 package kr.xit.inf.mois.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -28,63 +24,74 @@ import lombok.NoArgsConstructor;
  * </pre>
  */
 @JacksonXmlRootElement(localName = "EXCHANGE")
-@XmlAccessorType(XmlAccessType.FIELD)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class ExchangeDto extends ExchangeCommon {
-    @JsonProperty(value = "HEADER", required = true)
+    @JacksonXmlProperty(localName =  "HEADER")
     private Header header;
 
-    @JsonProperty("BODY")
+    @JacksonXmlProperty(localName =  "BODY")
     private String body;
 
-    @JsonProperty("ATTACHMENTS")
+    @JacksonXmlProperty(localName =  "ATTACHMENTS")
     private Attachments attachments;
 
-    @JacksonXmlRootElement(localName = "HEADER")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Header {
-        @JsonProperty(value = "COMMON", required = true)
+        @JacksonXmlProperty(localName = "COMMON")
         private Common common;
-        @JsonProperty(value = "DIRECTION", required = true)
+
+        @JacksonXmlProperty(localName = "DIRECTION")
         private Direction direction;
-        @JsonProperty("ADDENDA")
+
+        @JacksonXmlProperty(localName =  "ADDENDA")
         private Addenda addenda;
     }
 
-    @JacksonXmlRootElement(localName = "DIRECTION")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Direction {
-        @JsonProperty("TO_DOCUMENT_SYSTEM")
+        @JacksonXmlProperty(localName =  "TO_DOCUMENT_SYSTEM")
         private ToDocumentSystem toDocumentSystem;
-        @JsonProperty("TO_ADMINISTRATIVE_SYSTEM")
+
+        @JacksonXmlProperty(localName =  "TO_ADMINISTRATIVE_SYSTEM")
         private ExchangeMisDto.ToAdministrativeSystem toAdministrativeSystem;
     }
 
-    @JacksonXmlRootElement(localName = "TO_DOCUMENT_SYSTEM")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class ToDocumentSystem {
-        @XmlAttribute
         @JacksonXmlProperty(isAttribute = true, localName = "notification")
         String notification;
 
-        @JsonProperty("LINES")
+        @JacksonXmlProperty(localName =  "LINES")
         private Lines lines;
 
-        @JsonProperty("MODIFICATION_FLAG")
+        @JacksonXmlProperty(localName =  "MODIFICATION_FLAG")
+        private ModificationFlag modificationFlag;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ToAdministrativeSystem {
+        @JacksonXmlProperty(localName = "DOCNUM")
+        private Docnum docnum;
+
+        @JacksonXmlProperty(localName = "SANCTION_INFO")
+        private SanctionInfo sanctionInfo;
+
+        @JacksonXmlProperty(localName = "MODIFICATION_FLAG")
         private ModificationFlag modificationFlag;
     }
 }

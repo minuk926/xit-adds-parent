@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.util.List;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -235,18 +237,47 @@ public class ExchangeDtoTest {
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         ExchangeDto dto
-            = xmlMapper.readValue(xml, ExchangeDto.class);
-        log.info("dto: {}", dto);
+            = xmlMapper.readValue(xml3, ExchangeDto.class);
 
         assertNotNull(dto);
 
-        //xmlMapper.writeValue(new File("open_exchange_exchange2-1.xml"), dto);
         xmlMapper.writeValue(System.out, dto);
     }
 
     @DisplayName("전자결재 xml write 테스트")
     @Test
     public void exchangeXmlWriteTest() throws IOException {
+        ExchangeDto dto = getExchangeDto();
+
+        JacksonXmlModule module = new JacksonXmlModule();
+        module.setDefaultUseWrapper(true);
+        XmlMapper mapper = new XmlMapper(module);
+
+        XMLOutputFactory factory = mapper.getFactory().getXMLOutputFactory();
+
+        String dtd = """
+            <!DOCTYPE EXCHANGE SYSTEM "exchange.dtd">
+            """;
+        // FIXME: 파일명 생성
+        try (FileWriter w = new FileWriter("exchange_exchange_1.xml")) {
+            XMLStreamWriter sw = factory.createXMLStreamWriter(w);
+            sw.writeStartDocument("EUC-KR", "1.0");
+            sw.writeDTD("\n"+dtd);
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            //mapper.writeValue(sw, dto);
+
+
+
+            StringWriter swr = new StringWriter();
+            mapper.writeValue(swr, dto);
+            System.out.println(swr.toString());
+
+        }catch (XMLStreamException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static ExchangeDto getExchangeDto() {
         ExchangeDto.Common common = ExchangeDto.Common.builder()
             .sender(
                 ExchangeDto.Sender.builder()
@@ -286,39 +317,26 @@ public class ExchangeDtoTest {
             .direction(direction)
             .build();
 
+        ExchangeCommon.Attachments.AttachmentsBuilder attachment = ExchangeDto.Attachments.builder()
+            .attachment(List.of(
+                    ExchangeDto.Attachment.builder()
+                        .filename("attach_attach_291ddc46bf184029ffe4070328020703.hwp")
+                        .desc("001")
+                        .value("업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_1.hwp")
+                        .build(),
+                    ExchangeDto.Attachment.builder()
+                        .filename("attach_attach_101bbc46bf184029ffe4070328010291.hwp")
+                        .desc("002")
+                        .value("업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_2.hwp")
+                        .build()
+                )
+            );
 
         ExchangeDto dto = ExchangeDto.builder()
             .header(header)
             .body("업무관리시스템과 행정정보시스템간 샘플 기안문서 본문")
+            .attachments(attachment.build())
             .build();
-
-
-        /*
-        <?xml version="1.0" encoding="EUC-KR"?>
-        <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
-        처리
-        */
-        JacksonXmlModule module = new JacksonXmlModule();
-        module.setDefaultUseWrapper(true);
-        XmlMapper mapper = new XmlMapper(module);
-
-        XMLOutputFactory factory = mapper.getFactory().getXMLOutputFactory();
-
-        String dtd = """
-            <!DOCTYPE EXCHANGE SYSTEM "exchange.dtd">
-            """;
-        try (FileWriter w = new FileWriter("exchange_exchange11-1.xml")) {
-            XMLStreamWriter sw = factory.createXMLStreamWriter(w);
-            sw.writeStartDocument("EUC-KR", "1.0");
-            sw.writeDTD("\n"+dtd);
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.writeValue(sw, dto);
-
-        }catch (XMLStreamException e) {
-            e.printStackTrace();
-        }
-
-        String dtoXml = mapper.writeValueAsString(dto);
-        log.info("dtoXml: {}", dtoXml);
+        return dto;
     }
 }

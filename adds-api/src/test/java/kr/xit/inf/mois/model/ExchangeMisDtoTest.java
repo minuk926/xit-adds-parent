@@ -9,11 +9,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,6 +53,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ExtendWith(SpringExtension.class)
 public class ExchangeMisDtoTest {
+    private static final String XML_NAMESPACE = "<https://kkoon9.tistory.com/>";
+    private static final String PREFIX = "kkoon9";
+
 
     String xml = """
         <?xml version="1.0" encoding="EUC-KR"?>
@@ -290,18 +297,45 @@ public class ExchangeMisDtoTest {
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         ExchangeMisDto dto
-            = xmlMapper.readValue(xml2, ExchangeMisDto.class);
+            = xmlMapper.readValue(xml3, ExchangeMisDto.class);
         log.info("dto: {}", dto);
 
         assertNotNull(dto);
 
-        //xmlMapper.writeValue(new File("open_exchange_exchange_mis_2-1.xml"), dto);
         xmlMapper.writeValue(System.out, dto);
     }
 
     @DisplayName("전자문서 xml write 테스트")
     @Test
     public void exchangeMisXmlWriteTest() throws IOException {
+        ExchangeMisDto dto = getMisDto();
+
+        JacksonXmlModule module = new JacksonXmlModule();
+        module.setDefaultUseWrapper(false);
+        XmlMapper mapper = new XmlMapper(module);
+
+        XMLOutputFactory factory = mapper.getFactory().getXMLOutputFactory();
+
+        String dtd = """
+            <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
+            """;
+        // FIXME: 파일명 생성
+        try (FileWriter w = new FileWriter("open_exchange_exchange_mis_1.xml")) {
+            XMLStreamWriter sw = factory.createXMLStreamWriter(w);
+            sw.writeStartDocument("EUC-KR", "1.0");
+            sw.writeDTD("\n"+dtd);
+
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            mapper.writeValue(sw, dto);
+
+        }catch (XMLStreamException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private static ExchangeMisDto getMisDto() {
         ExchangeMisDto.Common common = ExchangeMisDto.Common.builder()
             .sender(
                 ExchangeMisDto.Sender.builder()
@@ -341,7 +375,6 @@ public class ExchangeMisDtoTest {
             .direction(direction)
             .build();
 
-
         ExchangeMisDto dto = ExchangeMisDto.builder()
             .header(header)
             .body(
@@ -349,36 +382,7 @@ public class ExchangeMisDtoTest {
                     .value("업무관리시스템과 행정정보시스템간 샘플 기안문서 본문")
                     .build())
             .build();
-
-
-
-
-        JacksonXmlModule module = new JacksonXmlModule();
-        module.setDefaultUseWrapper(false);
-        XmlMapper mapper = new XmlMapper(module);
-
-        XMLOutputFactory factory = mapper.getFactory().getXMLOutputFactory();
-
-        String dtd = """
-            <!DOCTYPE EXCHANGE SYSTEM "exchange_mis.dtd">
-            """;
-        try (FileWriter w = new FileWriter("open_exchange_exchange_mis_11-1.xml")) {
-            XMLStreamWriter sw = factory.createXMLStreamWriter(w);
-            sw.writeStartDocument("EUC-KR", "1.0");
-            sw.writeDTD("\n"+dtd);
-
-            //mapper.enable(ToXmlGenerator.Feature.WRITE_XML_1_1); // XML 1.1 지원
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.writeValue(sw, dto);
-
-        }catch (XMLStreamException e) {
-            e.printStackTrace();
-        }
-
-
-
-        String dtoXml = mapper.writeValueAsString(dto);
-        log.info("dtoXml: {}", dtoXml);
+        return dto;
     }
 
     @Test
@@ -413,25 +417,29 @@ public class ExchangeMisDtoTest {
     @Test
     @DisplayName("marshal 테스트")
     public void jaxbMarshalTest() throws JAXBException, IOException {
+        final String XML_NAMESPACE = "<https://kkoon9.tistory.com/>";
         // Given
-        File file = new File("d:/data/data3.xml");
         JAXBContext jaxbContext = JAXBContext.newInstance(ExchangeMisDto.class);
         Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "EUC-KR");
+        marshaller.setProperty("org.glassfish.jaxb.namespacePrefixMapper", new NamespacePrefixMapperImpl());
 
-        ExchangeMisDto dto = new ExchangeMisDto();
+        ExchangeMisDto dto = getExchangeMisDto();
 
         // When
 
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        File file = new File("aaaa.xml");
         marshaller.marshal(dto, file);
 
         FileInputStream fileInputStream = new FileInputStream(file);
         byte[] bytes = fileInputStream.readAllBytes();
         String content = new String(bytes);
 
-        // StringWriter sw = new StringWriter();
-        // marshaller.marshal(dto, sw);
-        // String xml = sw.toString();
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(dto, sw);
+        String xml = sw.toString();
+        System.out.println(xml);
     }
 
     // XML 문자열에 DOCTYPE을 추가하는 메서드
@@ -447,5 +455,97 @@ public class ExchangeMisDtoTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.writeValue(file, content);
+    }
+
+    private static class NamespacePrefixMapperImpl extends NamespacePrefixMapper {
+        private Map<String, String> prefixMap = new HashMap<>();
+
+        public NamespacePrefixMapperImpl() {
+            prefixMap.put(XML_NAMESPACE, PREFIX);
+        }
+
+        @Override
+        public String getPreferredPrefix(String namespaceUri, String suggestion,
+            boolean requirePrefix) {
+            return prefixMap.getOrDefault(namespaceUri, suggestion);
+        }
+    }
+
+    private ExchangeMisDto getExchangeMisDto() {
+        ExchangeMisDto.Common common = ExchangeMisDto.Common.builder()
+            .sender(
+                ExchangeMisDto.Sender.builder()
+                    .serverid("ADM131000040")
+                    .userid("hongkildong")
+                    .email("ttt@g.co.kr")
+                    .build())
+            .receiver(
+                ExchangeMisDto.Receiver.builder()
+                    .serverid("ADM131000040")
+                    .userid("hongkildong")
+                    .email("ldlldld@k.r")
+                    .build())
+            .title("업무관리시스템과 행정정보시스템간 샘플문서")
+            .createdDate("2007-01-24 14:45:34")
+            .attachnum(2)
+            .administrativeNum("APP20060000000004075")
+            .build();
+
+        ExchangeMisDto.Direction direction = ExchangeMisDto.Direction.builder()
+            .toDocumentSystem(
+                ExchangeMisDto.ToDocumentSystem.builder()
+                    .notification("all")
+                    .modificationFlag(
+                        ExchangeMisDto.ModificationFlag.builder()
+                            .modifiable(
+                                ExchangeMisDto.Modifiable.builder()
+                                    .modifyflag("yes")
+                                    .build())
+                            .build())
+                    .build()
+            )
+            .build();
+
+        ExchangeCommon.Attachments.AttachmentsBuilder attachment = ExchangeDto.Attachments.builder()
+            .attachment(List.of(
+                    ExchangeDto.Attachment.builder()
+                        .filename("attach_attach_291ddc46bf184029ffe4070328020703.hwp")
+                        .desc("001")
+                        .value("업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_1.hwp")
+                        .build(),
+                    ExchangeDto.Attachment.builder()
+                        .filename("attach_attach_101bbc46bf184029ffe4070328010291.hwp")
+                        .desc("002")
+                        .value("업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_2.hwp")
+                        .build()
+                )
+            );
+
+        List<ExchangeCommon.Attachment> listAttch = List.of(
+            ExchangeDto.Attachment.builder()
+                .filename("attach_attach_291ddc46bf184029ffe4070328020703.hwp")
+                .desc("001")
+                .value("업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_1.hwp")
+                .build(),
+            ExchangeDto.Attachment.builder()
+                .filename("attach_attach_101bbc46bf184029ffe4070328010291.hwp")
+                .desc("002")
+                .value("업무관리시스템과 행정정보시스템간 샘플문서_첨부화일_2.hwp")
+                .build());
+
+        ExchangeMisDto.Header header = ExchangeMisDto.Header.builder()
+            .common(common)
+            .direction(direction)
+            .build();
+
+        return ExchangeMisDto.builder()
+            .header(header)
+            .body(
+                ExchangeMisDto.Body.builder()
+                    .value("업무관리시스템과 행정정보시스템간 샘플 기안문서 본문")
+                    .build())
+            //.attachments(listAttch)
+            .attachments(attachment.build())
+            .build();
     }
 }

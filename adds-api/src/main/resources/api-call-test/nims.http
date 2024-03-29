@@ -1,0 +1,29 @@
+### 품목정보_kd ###
+POST {{nims-url}}/api/productinfo_kd.do
+content-type: application/json;charset=UTF-8
+
+{
+    "k": "{{nims-api-key}}",
+    "pg": "1",
+    "fg": "1",
+    "fg2": "",
+    "p": "",
+    "pn": "",
+    "ymd": ""
+}
+
+### 품목정보_kd ###
+POST {{nims-url}}/api/productinfo_kd.do
+content-type: application/x-www-form-urlencoded
+
+k={{nims-api-key}} &
+pg=1 &
+fg=1 &
+fg2= &
+p= &
+pn= &
+ymd=
+
+
+
+

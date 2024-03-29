@@ -2,15 +2,11 @@ package kr.xit.inf.mois.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,274 +29,258 @@ import lombok.NoArgsConstructor;
  * </pre>
  */
 public class ExchangeCommon {
-    @JacksonXmlRootElement(localName = "COMMON")
-    @XmlAccessorType(XmlAccessType.FIELD)
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Common {
-        @JsonProperty(value = "SENDER", required = true)
+        @JacksonXmlProperty(localName = "SENDER")
         private Sender sender;
-        @JsonProperty(value = "RECEIVER", required = true)
+
+        @JacksonXmlProperty(localName = "RECEIVER")
         private Receiver receiver;
-        @JsonProperty(value = "TITLE", required = true)
+
+        @JacksonXmlProperty(localName = "TITLE")
         private String title;
-        @JsonProperty(value = "CREATED_DATE", required = true)
+
+        @JacksonXmlProperty(localName = "CREATED_DATE")
         private String createdDate;
-        @JsonProperty(value = "ATTACHNUM", required = true)
+
+        @JacksonXmlProperty(localName = "ATTACHNUM")
         private int attachnum;
-        @JsonProperty(value = "ADMINISTRATIVE_NUM", required = true)
+
+        @JacksonXmlProperty(localName = "ADMINISTRATIVE_NUM")
         private String administrativeNum;
     }
 
-    @JacksonXmlRootElement(localName = "SENDER")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Sender {
-        @JsonProperty(value = "SERVERID", required = true)
+        @JacksonXmlProperty(localName = "SERVERID")
         private String serverid;
-        @JsonProperty(value = "USERID", required = true)
+
+        @JacksonXmlProperty(localName = "USERID")
         private String userid;
-        @JsonProperty("EMAIL")
+
+        @JacksonXmlProperty(localName = "EMAIL")
         private String email;
     }
 
-    @JacksonXmlRootElement(localName = "RECEIVER")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Receiver {
-        @JsonProperty(value = "SERVERID", required = true)
+        @JacksonXmlProperty(localName = "SERVERID")
         private String serverid;
-        @JsonProperty(value = "USERID", required = true)
+
+        @JacksonXmlProperty(localName = "USERID")
         private String userid;
-        @JsonProperty("EMAIL")
+
+        @JacksonXmlProperty(localName = "EMAIL")
         private String email;
     }
 
-    @JacksonXmlRootElement(localName = "TO_ADMINISTRATIVE_SYSTEM")
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    public static class ToAdministrativeSystem {
-        @JsonProperty("DOCNUM")
-        private Docnum docnum;
-        @JsonProperty("SANCTION_INFO")
-        private SanctionInfo sanctionInfo;
-        @JsonProperty("MODIFICATION_FLAG")
-        private ModificationFlag modificationFlag;
-    }
 
-    @JacksonXmlRootElement(localName = "DOCNUM")
-    @XmlAccessorType(XmlAccessType.FIELD)
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Docnum {
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "docnumcode")
+        @JacksonXmlProperty(localName = "docnumcode", isAttribute = true)
         private String docnumcode;
+
         @XmlValue
         @JacksonXmlText
         private String value;
     }
 
-    @JacksonXmlRootElement(localName = "SANCTION_INFO")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class SanctionInfo {
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "status")
+        @JacksonXmlProperty(localName = "status", isAttribute = true)
         private String status;
 
-        @JsonProperty("LINES")
+        @JacksonXmlProperty(localName = "LINES")
         private Lines lines;
     }
 
-    @JacksonXmlRootElement(localName = "LINES")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Lines {
-        @XmlElementWrapper
-        @JsonProperty("LINE")
+        @JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "LINE")
         private List<Line> line;
     }
 
-    @JacksonXmlRootElement(localName = "LINE")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Line {
-        @JsonProperty("LEVEL")
+        @JacksonXmlProperty(localName = "LEVEL")
         private String level;
-        @JsonProperty("SANCTION")
+
+        @JacksonXmlProperty(localName = "SANCTION")
         private Sanction sanction;
     }
 
-    @JacksonXmlRootElement(localName = "SANCTION")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Sanction {
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "result")
+        @JacksonXmlProperty(localName = "result", isAttribute = true)
         private String result;
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "type")
+
+        @JacksonXmlProperty(localName = "type", isAttribute = true)
         private String type;
-        @JsonProperty("PERSON")
+
+        @JacksonXmlProperty(localName = "PERSON")
         private Person person;
 
-        @JsonProperty("COMMENT")
+        @JacksonXmlProperty(localName = "COMMENT")
         private String comment;
 
-        @JsonProperty("DATE")
+        @JacksonXmlProperty(localName = "DATE")
         private String date;
     }
 
-    @JacksonXmlRootElement(localName = "PERSON")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Person {
-        @JsonProperty("USERID")
+        @JacksonXmlProperty(localName = "USERID")
         private String userid;
-        @JsonProperty("NAME")
+
+        @JacksonXmlProperty(localName = "NAME")
         private String name;
-        @JsonProperty("POSITION")
+
+        @JacksonXmlProperty(localName = "POSITION")
         private String position;
-        @JsonProperty("DEPT")
+
+        @JacksonXmlProperty(localName = "DEPT")
         private String dept;
-        @JsonProperty("ORG")
+
+        @JacksonXmlProperty(localName = "ORG")
         private String org;
     }
 
-    @JacksonXmlRootElement(localName = "MODIFICATION_FLAG")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class ModificationFlag {
-        @JsonProperty("MODIFIABLE")
+        @JacksonXmlProperty(localName = "MODIFIABLE")
         private Modifiable modifiable;
 
-        @JsonProperty("MODIFIED")
+        @JacksonXmlProperty(localName = "MODIFIED")
         private String modified;
     }
 
-    @JacksonXmlRootElement(localName = "MODIFIABLE")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Modifiable {
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "modifyflag")
+        @JacksonXmlProperty(localName = "modifyflag", isAttribute = true)
         private String modifyflag;
     }
 
-    @JacksonXmlRootElement(localName = "ADDENDA")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Addenda {
-        @JsonProperty("ADDENDUM")
+        @JacksonXmlProperty(localName = "ADDENDUM")
         private Addendum addendum;
     }
 
-    @JacksonXmlRootElement(localName = "ADDENDUM")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Addendum {
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "comment")
+        @JacksonXmlProperty(localName = "comment", isAttribute = true)
         private String comment;
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "name")
+
+        @JacksonXmlProperty(localName = "name", isAttribute = true)
         private String name;
+
         @XmlValue
         @JacksonXmlText
         private String value;
     }
 
-    @JacksonXmlRootElement(localName = "ATTACHMENTS")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Attachments {
+        @JacksonXmlProperty(localName = "ADMINISTRATIVE_DB")
         private AdministrativeDB administrativeDB;
-        @XmlElementWrapper
-        @JsonProperty("ATTACHMENT")
+
+        @JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "ATTACHMENT")
         private List<Attachment> attachment;
     }
 
-    @JacksonXmlRootElement(localName = "ADMINISTRATIVE_DB")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class AdministrativeDB {
-        @JsonProperty("XMLFILE")
+        @JacksonXmlProperty(localName = "XMLFILE")
         private XMLFile xmlfile;
-        @JsonProperty("XSLFILE")
+
+        @JacksonXmlProperty(localName = "XSLFILE")
         private XSLFile xslfile;
     }
 
-    @JacksonXmlRootElement(localName = "XMLFILE")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class XMLFile {
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "filename")
+        @JacksonXmlProperty(localName = "filename", isAttribute = true)
         String filename;
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "desc")
+
+        @JacksonXmlProperty(localName = "desc", isAttribute = true)
         String desc;
     }
 
-    @JacksonXmlRootElement(localName = "XSLFILE")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class XSLFile {
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "filename")
+        @JacksonXmlProperty(localName = "filename", isAttribute = true)
         String filename;
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "desc")
+
+        @JacksonXmlProperty(localName = "desc", isAttribute = true)
         String desc;
     }
 
-    @JacksonXmlRootElement(localName = "ATTACHMENT")
-    @XmlAccessorType(XmlAccessType.FIELD)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class Attachment {
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "filename")
+        @JacksonXmlProperty(localName = "filename", isAttribute = true)
         private String filename;
-        @XmlAttribute
-        @JacksonXmlProperty(isAttribute = true, localName = "desc")
+
+        @JacksonXmlProperty(localName = "desc", isAttribute = true)
         private String desc;
+
         @XmlValue
         @JacksonXmlText
         private String value;
