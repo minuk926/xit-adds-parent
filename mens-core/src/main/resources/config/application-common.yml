@@ -30,6 +30,7 @@ Globals:
 
 #server.servlet.context-path=/sht_boot_web
 server:
+  shutdown: graceful
   tomcat:
     uri-encoding: UTF-8
   #    remote-ip-header: x-forwarded-for
