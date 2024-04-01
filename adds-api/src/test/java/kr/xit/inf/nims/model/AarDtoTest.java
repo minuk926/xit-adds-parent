@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -43,17 +44,24 @@ public class AarDtoTest {
     @DisplayName("마약류폐기연계 xml read 테스트")
     @Test
     public void aarXmlReadTest() throws IOException {
-        String fileName = "C:\\workspace\\git\\xit-adds-parent\\adds-api\\src\\main\\resources\\test_data\\12345678920240326120248_0001.XML";
+        String fileName = "/src/test/resources/test_data/123456789AAR20240326120248_0001.XML";
 
         JacksonXmlModule jacksonXmlModule = new JacksonXmlModule();
         jacksonXmlModule.setDefaultUseWrapper(false);
-        //ObjectMapper xmlMapper = new XmlMapper(jacksonXmlModule);
         XmlMapper xmlMapper = new XmlMapper(jacksonXmlModule);
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
+        Path cur = Paths.get("");	//현재 디렉토리 정보 '상대 경로' 형태로 담긴 인스턴스 생성
+        String cdir;
+
+        if(cur.isAbsolute())	//절대 경로 일 경우.
+            cdir=cur.toString();
+        else
+            cdir = cur.toAbsolutePath().toString();
+
+        Path path = Paths.get(cdir, fileName);
         Aar dto
-            = xmlMapper.readValue(Files.readString(Paths.get(fileName)), Aar.class);
-        log.info("dto: {}", dto);
+            = xmlMapper.readValue(Files.readString(path), Aar.class);
 
         assertNotNull(dto);
 
